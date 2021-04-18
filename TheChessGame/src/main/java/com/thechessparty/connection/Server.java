@@ -3,6 +3,7 @@ package com.thechessparty.connection;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -10,10 +11,16 @@ public class Server {
 
     private static final int PORT = 5000;
 
+    private static Scanner scan = new Scanner(System.in);
+    static boolean connected = false;
     //initialize socket and input stream
     private Socket socket;
     private ServerSocket server;
     private DataInputStream input;
+    private static String clientName;
+
+    private static ArrayList<String> checkNameList = new ArrayList<>();
+    //public static int playerCounter;
 
     // Server class variables
     private static final ArrayList<ClientHandler> clientList = new ArrayList<>();
@@ -71,10 +78,28 @@ public class Server {
         while (true) {
             System.out.println("[SERVER] Waiting for client connection...");
             Socket client = listener.accept();
+            DataInputStream inputClient = new DataInputStream(client.getInputStream()); // from client
+            DataOutputStream outputClient = new DataOutputStream(client.getOutputStream());
             System.out.println("[Server] Connected to client");
-            ClientHandler clientThread = new ClientHandler(client, clientList);
-            clientList.add(clientThread);
-            pool.execute(clientThread);
+            connected = true;
+
+            System.out.println("Current List of Everyone: " + checkNameList);
+
+            if(connected) {
+                System.out.println("Enter name: ");
+                clientName = getScan().next().toLowerCase();
+
+                while (checkNameList.contains(clientName.toLowerCase())) {
+                    System.out.println("Already taken. New name: ");
+                    clientName = getScan().next().toLowerCase();
+                }
+                ClientHandler clientThread = new ClientHandler(client, clientName, clientList, inputClient, outputClient);
+                clientList.add(clientThread);
+                pool.execute(clientThread);
+                checkNameList.add(clientName);
+            }
+
+            System.out.println("Updated List of Everyone: " + checkNameList);
         }
 
     }
@@ -107,5 +132,9 @@ public class Server {
 
     public static int getPORT() {
         return PORT;
+    }
+
+    public static Scanner getScan() {
+        return scan;
     }
 }
