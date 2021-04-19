@@ -1,0 +1,5 @@
+com\thechessparty\connection\pojo\SimpleTestCaseJsonPOJO.class
+com\thechessparty\connection\pojo\DayPOJO.class
+com\thechessparty\connection\jsonparsing\JsonTest.class
+com\thechessparty\connection\pojo\BookPOJO.class
+com\thechessparty\connection\pojo\AuthorPOJO.class

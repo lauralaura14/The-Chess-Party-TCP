@@ -1,0 +1,20 @@
+{
+  "authorName": "John",
+  "books": [
+    {
+      "title": "lord of the rings",
+      "inPrint": true,
+      "publishDate": "2021-04-10"
+    },
+    {
+      "title": "game of thrones",
+      "inPrint": false,
+      "publishDate": "2012-05-14"
+    },
+    {
+      "title": "Dr. Shavago",
+      "inPrint": true,
+      "publishDate": "1921-04-10"
+    }
+  ]
+}

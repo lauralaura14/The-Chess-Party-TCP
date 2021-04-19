@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="59bbda6a-f72f-4441-9138-a8faaacacc49" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/moveset/AttackMove.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/moveset/Move.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/moveset/NormalMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/AttackMove.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/GameBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/Move.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/NormalMove.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Rook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/BlackPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/BlackPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Status.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Transition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Transition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/WhitePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/WhitePlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/Team.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/Team.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/AttackMove.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/GameBoard$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/GameBoard$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/GameBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/GameBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/Move.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/NormalMove.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Bishop.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Bishop.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/King.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/King.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Knight.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Knight.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Pawn.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Pawn.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Piece.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Queen.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Queen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Rook.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Rook.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/BlackPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/BlackPlayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Status.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Status.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Transition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Transition.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/WhitePlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/WhitePlayer.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1r2fIISd0lmhrsWIzDGcZvMe3un" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.thechessparty.engine.player" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.GameManager">
+    <configuration name="Client1" type="Application" factoryName="Application" singleton="false" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.Client" />
+      <module name="TheChessGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.thechessparty.connection.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.thechessparty.engine.GameManager" />
+      <module name="TheChessGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.thechessparty.engine.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.Server" />
+      <module name="TheChessGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.thechessparty.connection.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoardTests.printBoard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TheChessGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.thechessparty.connection.engine.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.thechessparty.connection.engine" />
+      <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.engine.BoardTests" />
+      <option name="METHOD_NAME" value="printBoard" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Client1" />
+      <item itemvalue="Application.Server" />
+      <item itemvalue="Application.GameManager" />
+      <item itemvalue="JUnit.BoardTests.printBoard" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GameManager" />
+        <item itemvalue="JUnit.BoardTests.printBoard" />
+        <item itemvalue="Application.Client1" />
+        <item itemvalue="Application.Server" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="59bbda6a-f72f-4441-9138-a8faaacacc49" name="Default Changelist" comment="" />
+      <created>1618179027142</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1618179027142</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/GameBoard.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="com.thechessparty.engine.board.GameBoard" memberName="gameBoard" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+</project>
