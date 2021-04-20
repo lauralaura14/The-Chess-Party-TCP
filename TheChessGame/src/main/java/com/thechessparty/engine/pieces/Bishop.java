@@ -18,13 +18,13 @@ public class Bishop extends Piece {
 
     @Override
     public List<Move> listLegalMoves(GameBoard board) {
-        int destination;
+       
         final List<Move> legalMoves = new ArrayList<>();
        // return null;
         for (final int current : BISHOP_MOVES) {
+            
+            int destination = getPosition();
 
-            //applying the offset to the position;
-            destination = getPosition() + current;
 
             while (BoardUtilites.isValidMove(destination)) {
                    if (isFirstColumn(getPosition(), current) || isEighthColumn(getPosition(), current)) {
