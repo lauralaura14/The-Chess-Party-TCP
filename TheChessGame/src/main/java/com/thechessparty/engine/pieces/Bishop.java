@@ -8,14 +8,51 @@ import java.util.List;
 
 public class Bishop extends Piece {
 
+    //class variables
+    // offsets relative to the Bishop's position on the board
+    private final static int[] BISHOP_MOVES = {-9, -7, 7, 9};
+
     public Bishop(int position, final Team team) {
         super(PieceIdentifiers.BISHOP, position, team);
     }
 
     @Override
     public List<Move> listLegalMoves(GameBoard board) {
-        return null;
+        int destination;
+        final List<Move> legalMoves = new ArrayList<>();
+       // return null;
+        for (final int current : BISHOP_MOVES) {
+
+            //applying the offset to the position;
+            destination = getPosition() + current;
+
+            while (BoardUtilites.isValidMove(destination)) {
+                   if (isFirstColumn(getPosition(), current) || isEighthColumn(getPosition(), current)) {
+                    break;
+                }
+                  destination += current;
+               
+                if (BoardUtilites.isValidMove(destination)) {
+                   final Tile destinationTile = board.getTile(current);
+
+                // if destination Tile is not occupied get NormalMove
+                if (!destinationTile.isTileOccupied()) {
+                    legalMoves.add(new NormalMove(board, this, destination));
+                } else {
+                    final Piece occupyingPiece = destinationTile.getPiece();
+                    final Team team = occupyingPiece.getTeam();
+
+                    // if the Tile is occupied get AttackMove
+                    if (getTeam() != team) {
+                        legalMoves.add(new AttackMove(board, this, destination, occupyingPiece));
+                    }
+                    break; 
+                }
+            }
+        } 
+        return ImmutableList.copyOf(legalMoves);   
     }
+
 
     /**
      * Creates a new Bishop with updated position of Move
@@ -31,4 +68,30 @@ public class Bishop extends Piece {
     public String toString(){
         return PieceIdentifiers.BISHOP.toString();
     }
+
+    //----------- private helper methods ---------------------
+
+    /**
+     * Utilizes the constant boolean array that tracks the
+     *
+     * @param currentPosition current coordinates of the Bishop
+     * @param offset          the offset position to be qualified
+     * @return true if the move can be made false if there is edge case exclusion
+     */
+    private static boolean isFirstColumn(final int currentPosition, final int offset) {
+        return BoardUtilites.FIRST_COLUMN[currentPosition] && ((offset == -9) || (offset == 7));
+    }
+
+
+    /**
+     * Utilizes the constant boolean array that tracks the
+     *
+     * @param currentPosition current coordinates of the Bishop
+     * @param offset          the offset position to be qualified
+     * @return true if the move can be made false if there is edge case exclusion
+     */
+    private static boolean isEighthColumn(final int currentPosition, final int offset) {
+        return BoardUtilites.EIGHTH_COLUMN[currentPosition] && ((offset == -7) || (offset == 9));
+    }
+ }
 }
