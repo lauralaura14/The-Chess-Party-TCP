@@ -17,17 +17,15 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public List<Move> listLegalMoves(GameBoard board) {
+    public List<Move> listLegalMoves(final GameBoard board) {
        
         final List<Move> legalMoves = new ArrayList<>();
        // return null;
         for (final int current : BISHOP_MOVES) {
-            
             int destination = getPosition();
-
-
-            while (BoardUtilites.isValidMove(destination)) {
-                   if (isFirstColumn(getPosition(), current) || isEighthColumn(getPosition(), current)) {
+              while (BoardUtilites.isValidMove(destination)) {
+                   if (isFirstColumn(destination, current) 
+                    || isEighthColumn(destination, current)) {
                     break;
                 }
                   destination += current;
@@ -49,27 +47,13 @@ public class Bishop extends Piece {
                     break; 
                 }
             }
-        } 
+        }
+    }
+
         return ImmutableList.copyOf(legalMoves);   
-    }
+}
 
-
-    /**
-     * Creates a new Bishop with updated position of Move
-     * @param m the next Move of the Bishop
-     * @return a new Bishop with position of Move
-     */
-    @Override
-    public Piece movePiece(Move m) {
-        return new Bishop(m.getDestination(), m.getMovedPosition().getTeam());
-    }
-
-    @Override
-    public String toString(){
-        return PieceIdentifiers.BISHOP.toString();
-    }
-
-    //----------- private helper methods ---------------------
+//----------- private helper methods ---------------------
 
     /**
      * Utilizes the constant boolean array that tracks the
@@ -93,5 +77,19 @@ public class Bishop extends Piece {
     private static boolean isEighthColumn(final int currentPosition, final int offset) {
         return BoardUtilites.EIGHTH_COLUMN[currentPosition] && ((offset == -7) || (offset == 9));
     }
+
+    /**
+     * Creates a new Bishop with updated position of Move
+     * @param m the next Move of the Bishop
+     * @return a new Bishop with position of Move
+     */
+    @Override
+    public Piece movePiece(Move m) {
+        return new Bishop(m.getDestination(), m.getMovedPosition().getTeam());
+    }
+
+    @Override
+    public String toString(){
+        return PieceIdentifiers.BISHOP.toString();
+    } 
  }
-}
