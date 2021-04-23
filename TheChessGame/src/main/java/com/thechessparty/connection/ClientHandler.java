@@ -14,14 +14,15 @@ public class ClientHandler implements Runnable {
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
     private String clientName;
-    private ArrayList activeList;
+    private JoinedPlayer firstPlayer;
+    private JoinedPlayer secondPlayer;
 
     // constructor
     public ClientHandler(Socket clientSocket, String clientName, ArrayList<ClientHandler> clientList, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
         this.client = clientSocket;
         this.clientList = clientList;
-        this.input = new BufferedReader(new InputStreamReader(inputStream));
-        this.output = new PrintWriter(outputStream, true);
+        //this.input = new BufferedReader(new InputStreamReader(inputStream));
+        //this.output = new PrintWriter(outputStream, true);
         this.inputStream = inputStream;
         this.outputStream = outputStream;
         this.clientName = clientName;
@@ -31,23 +32,23 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
-
         String inputMsg;
 
         try {
             outputStream.writeUTF(getClientName());
 
-            outputStream.writeUTF("Current Available Waiting Player(s): ");
+            outputStream.writeUTF("Welcome " + getClientName() + ". " + "\nCurrent Available Waiting Player(s): ");
+
             String list = "";
+
             for(int i = 0; i < clientList.size()-1; i++) {
                 list += clientList.get(i).getClientName() + " ";
             }
+
             if(list != "") {
                 outputStream.writeUTF(list + "\n\nPlease message player you want to play with strictly following this format and replies." +
                         "\nExample: Bob is player you want to message. 'Request' to request game, 'no' to reject, 'yes' to accept." +
-                        "\nbob: request" +
-                        "\nbob: no" +
-                        "\nbob: yes");
+                        "\nbob: request | bob: no | bob: yes");
 
             } else {
                 outputStream.writeUTF("\nYou're the only one waiting.");
@@ -64,31 +65,47 @@ public class ClientHandler implements Runnable {
                 String receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
                 String msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
 
-
-                //check to see if receiverName exists in clientList
-                for(ClientHandler each : clientList) {
-                    if(each.getClientName().toLowerCase().equals(receiverName.toLowerCase())) {
-                        each.output.println(this.clientName +" says " + "'" + msg + "'");
-                        if(msg.equals("request")) {
-                            break;
-                        } else if(msg.equals("no")) {
-                            this.client.close();   //need to fix this. shouldn't close connection
-                            break;
-                        } else if(msg.equals("yes")) {
-                            //don't know if separate class needed for player who joins game
-                            JoinedPlayer first = new JoinedPlayer(this.client, this.clientName, "white");  //the one who made request
-                            JoinedPlayer second = new JoinedPlayer(each.client, each.getClientName(), "black");  //the one who accepted
-                            coinToss(); // both players do coin toss
+                if (!msg.equals("request") && !msg.equals("yes") && !msg.equals("no")) {
+                    outputStream.writeUTF("Invalid Response. Try again.");
+                } else {
+                    //check to see if receiverName exists in clientList
+                    for (ClientHandler each : clientList) {
+                        if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase())) {
+                            each.outputStream.writeUTF(this.clientName + " says " + "'" + msg + "'");
+                            outputStream.flush();
+                            //person requesting automatically heads
+                            if (msg.equals("request")) {
+                                break;
+                            } else if (msg.equals("no")) {
+                                each.outputStream.writeUTF(this.clientName + " denied your request. Choose another available player.");
+                                outputStream.flush();
+                                break;
+                            } else if (msg.equals("yes")) {
+                                if (coinToss() == "heads") {
+                                    firstPlayer = new JoinedPlayer(this.client, this.clientName, "white");  //the one who made request (auto heads)
+                                    secondPlayer = new JoinedPlayer(each.client, each.getClientName(), "black");  //the one who accepted
+                                } else {
+                                    firstPlayer = new JoinedPlayer(each.client, each.getClientName(), "white");  //the one who accepted
+                                    secondPlayer = new JoinedPlayer(this.client, this.clientName, "black");  //the one who made request
+                                }
+                                break;
+                            }
                         }
-                        break;
                     }
                 }
-
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-        closeConnection();
+
+        /*
+        try {
+            closeConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         */
+
     }
 
 /*
@@ -127,10 +144,17 @@ public class ClientHandler implements Runnable {
     /**
      * work on coin toss for who takes turn first/color in this method
      */
-    private void coinToss() {
+    private String coinToss() {
+        String side;
 
+        if(Math.random() <= 0.5) {
+            side = "heads";
+            return side;
+        } else {
+            side = "tails";
+            return side;
+        }
     }
-
 
     /**
      * Iterates through the list of clients and sends a message to each of them

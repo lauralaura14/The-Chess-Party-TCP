@@ -163,12 +163,12 @@ public class Client {
         //String id = getScan().nextLine();
         String id = inputStream.readUTF();
         setClientID(id);
-        ServerConnection serverConn = new ServerConnection(socket, getClientID());
+        //ServerConnection serverConn = new ServerConnection(socket, getClientID());
 
-        BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        //BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
+        //PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-        new Thread(serverConn).start();
+        //new Thread(serverConn).start();
 
         System.out.println("Connection made at ip: " + getServerIp() + " on port: " + getPort());
 
