@@ -76,8 +76,8 @@ public class ClientHandler implements Runnable {
                             break;
                         } else if(msg.equals("yes")) {
                             //don't know if separate class needed for player who joins game
-                            JoinedPlayer first = new JoinedPlayer(this.client, this.clientName);  //the one who made request
-                            JoinedPlayer second = new JoinedPlayer(each.client, each.getClientName());  //the one who accepted
+                            JoinedPlayer first = new JoinedPlayer(this.client, this.clientName, "white");  //the one who made request
+                            JoinedPlayer second = new JoinedPlayer(each.client, each.getClientName(), "black");  //the one who accepted
                             coinToss(); // both players do coin toss
                         }
                         break;
