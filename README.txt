@@ -6,6 +6,8 @@
 #                                                                                                   #
 #####################################################################################################
 
+By John Haney, Laura A, Aharon Loiterman, Nana Owusu Ansah
+
 ABOUT:
 The-chess-party is a Java based online chess game that uses a TCP connection
 to facilitate online multiplayer.
