@@ -9,6 +9,9 @@ import java.util.regex.Pattern;
 
 public class Client {
 
+    private static Thread outgoingPrivateMsg;
+    private static Thread incomingPrivateMsg;
+
     // initialize socket and input output streams
     private Socket socket;
     private DataInputStream input;
@@ -152,10 +155,12 @@ public class Client {
     public static void main(String args[]) throws IOException {
         Socket socket = new Socket(getServerIp(), getPort());
 
-        System.out.println("enter username");
-        String id = getScan().nextLine();
+        DataInputStream inputStream = new DataInputStream(socket.getInputStream());
+        DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+        //System.out.println("enter username");
+        //String id = getScan().nextLine();
+        String id = inputStream.readUTF();
         setClientID(id);
-
         ServerConnection serverConn = new ServerConnection(socket, getClientID());
 
         BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
@@ -165,18 +170,61 @@ public class Client {
 
         System.out.println("Connection made at ip: " + getServerIp() + " on port: " + getPort());
 
+        String waitList = inputStream.readUTF();
+        System.out.println(waitList);
+
+        String currentStateMsg = inputStream.readUTF();
+        System.out.println(currentStateMsg);
+
+        /**
+         * outgoing message client to client
+         */
+        outgoingPrivateMsg = new Thread(new Runnable() {
+            public void run() {
+                while(true) {
+                    String msg = getScan().nextLine();
+                    try {
+                        outputStream.writeUTF(msg);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        outgoingPrivateMsg.start();
+
+
+        /**
+         * incoming message client to client
+         */
+        incomingPrivateMsg = new Thread(new Runnable() {
+            public void run() {
+                while(true) {
+                    try {
+                        String msg = inputStream.readUTF();
+                        System.out.println(msg);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        incomingPrivateMsg.start();
+/*
         while (true) {
             System.out.println("[" + getClientID() + "]> ");
             String command = keyboard.readLine();
-
             if (command.equals("-quit")) break;
-
             out.println("FROM[" + getClientID() + "]: " + command);
         }
-
         socket.close();
         System.exit(0);
+ */
     }
+
+
 
     //--------- Getters and setters -----------------------------
 
@@ -227,4 +275,5 @@ public class Client {
     public static void setClientID(String clientID) {
         Client.clientID = clientID;
     }
+
 }
