@@ -20,6 +20,8 @@ public class Client {
     private static final int port = 5000;
     private static final Scanner scan = new Scanner(System.in);
     private static String clientID;
+    private static Thread IncomingPrivateMsg;
+    private static Thread OutgoingPrivateMsg;
 
     // constructor to set ip address and port
     public Client(String address, int port) {
@@ -179,7 +181,7 @@ public class Client {
         /**
          * outgoing message client to client
          */
-        outgoingPrivateMsg = new Thread(new Runnable() {
+        new Thread(new Runnable() {
             public void run() {
                 while(true) {
                     String msg = getScan().nextLine();
@@ -198,7 +200,7 @@ public class Client {
         /**
          * incoming message client to client
          */
-        incomingPrivateMsg = new Thread(new Runnable() {
+        new Thread(new Runnable() {
             public void run() {
                 while(true) {
                     try {
