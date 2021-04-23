@@ -12,7 +12,7 @@ public class Server {
     private static final int PORT = 5000;
 
     private static Scanner scan = new Scanner(System.in);
-    static boolean connected = false;
+    private static boolean connected = false;
     //initialize socket and input stream
     private Socket socket;
     private ServerSocket server;
@@ -28,45 +28,47 @@ public class Server {
     // 256 is maximum number of threads that each JDK can handle per IBM
     private static final ExecutorService pool = Executors.newFixedThreadPool(256);
 
+    /*
     public Server(){}
 
     // constructor with port
     public Server(int port) {
         // starts server and waits for a connection
-//        try {
-//            setServer(new ServerSocket(port));
-//            System.out.println("Server started");
-//
-//            System.out.println("Waiting for a client ...");
-//
-//            setSocket(server.accept());
-//            System.out.println("Client accepted");
-//
-//            // takes input from the client socket
-//            setIn(new DataInputStream(
-//                    new BufferedInputStream(socket.getInputStream())));
-//
-//            String line = "";
-//
-//            // reads message from client until "Over" is sent
-//            while (!line.equals("TERMINATE")) {
-//                try {
-//                    line = getIn().readUTF();
-//                    System.out.println(line);
-//
-//                } catch (IOException i) {
-//                    System.out.println(i.getMessage());
-//                }
-//            }
-//            System.out.println("Closing connection");
-//
-//            // close connection
-//            getSocket().close();
-//            getIn().close();
-//        } catch (IOException i) {
-//            System.out.println(i.getMessage());
-//        }
+        try {
+            setServer(new ServerSocket(port));
+            System.out.println("Server started");
+
+            System.out.println("Waiting for a client ...");
+
+            setSocket(server.accept());
+            System.out.println("Client accepted");
+
+            // takes input from the client socket
+            getIn(new DataInputStream(
+                    new BufferedInputStream(socket.getInputStream())));
+
+            String line = "";
+
+            // reads message from client until "Over" is sent
+            while (!line.equals("TERMINATE")) {
+                try {
+                    line = getIn().readUTF();
+                    System.out.println(line);
+
+                } catch (IOException i) {
+                    System.out.println(i.getMessage());
+                }
+            }
+            System.out.println("Closing connection");
+
+            // close connection
+            getSocket().close();
+            getIn().close();
+        } catch (IOException i) {
+            System.out.println(i.getMessage());
+        }
     }
+    */
 
     //-------------- main access method -----------------------
 
@@ -97,6 +99,7 @@ public class Server {
                 clientList.add(clientThread);
                 pool.execute(clientThread);
                 checkNameList.add(clientName);
+                Thread thread = new Thread(clientThread);
             }
 
             System.out.println("Updated List of Everyone: " + checkNameList);

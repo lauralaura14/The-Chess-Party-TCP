@@ -23,6 +23,7 @@ public class Client {
     private static Thread IncomingPrivateMsg;
     private static Thread OutgoingPrivateMsg;
 
+/*
     // constructor to set ip address and port
     public Client(String address, int port) {
         // establish a connection
@@ -181,10 +182,11 @@ public class Client {
         /**
          * outgoing message client to client
          */
-        new Thread(new Runnable() {
+        outgoingPrivateMsg = new Thread(new Runnable() {
+            @Override
             public void run() {
                 while(true) {
-                    String msg = getScan().nextLine();
+                    String msg = scan.nextLine();
                     try {
                         outputStream.writeUTF(msg);
                     } catch (IOException e) {
@@ -194,13 +196,11 @@ public class Client {
             }
         });
 
-        outgoingPrivateMsg.start();
-
-
         /**
          * incoming message client to client
          */
-        new Thread(new Runnable() {
+        incomingPrivateMsg = new Thread(new Runnable() {
+            @Override
             public void run() {
                 while(true) {
                     try {
@@ -212,7 +212,7 @@ public class Client {
                 }
             }
         });
-
+        outgoingPrivateMsg.start();
         incomingPrivateMsg.start();
 /*
         while (true) {
