@@ -36,7 +36,7 @@ public class ClientHandler implements Runnable {
 
         try {
             outputStream.writeUTF(getClientName());
-            outputStream.writeUTF("\nWelcome " + getClientName() + ". " + "\nCurrent Available Waiting Player(s): ");
+            outputStream.writeUTF("\nWelcome " + getClientName() + ". " + "\n\nCurrent Available Waiting Player(s): ");
 
             String list = "";
 
@@ -90,14 +90,11 @@ public class ClientHandler implements Runnable {
                                         firstPlayer = new JoinedPlayer(this.client, this.clientName, "white");  //the one who made request (auto heads)
                                         secondPlayer = new JoinedPlayer(each.client, each.getClientName(), "black");  //the one who accepted
 
-
                                         outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + this.clientName + ".");
                                         each.outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + each.clientName + ".");
                                     } else {
                                         firstPlayer = new JoinedPlayer(each.client, each.getClientName(), "white");  //the one who accepted
-
                                         secondPlayer = new JoinedPlayer(this.client, this.clientName, "black");  //the one who made request
-
 
                                         each.outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + each.clientName + ".");
                                         outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + this.clientName + ".");

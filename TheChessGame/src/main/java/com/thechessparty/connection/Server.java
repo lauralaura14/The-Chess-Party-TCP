@@ -82,19 +82,26 @@ public class Server {
             Socket client = listener.accept();
             DataInputStream inputClient = new DataInputStream(client.getInputStream()); // from client
             DataOutputStream outputClient = new DataOutputStream(client.getOutputStream());
-            System.out.println("[Server] Connected to client");
+            System.out.println("[Server] Connected to client\n");
             connected = true;
 
-            System.out.println("Current List of Everyone: " + checkNameList);
+            System.out.println("Current List of Available Players: " + checkNameList + "\n");
 
             if(connected) {
-                System.out.println("Enter name: ");
-                clientName = getScan().next().toLowerCase();
-
-                while (checkNameList.contains(clientName.toLowerCase())) {
-                    System.out.println("Already taken. New name: ");
-                    clientName = getScan().next().toLowerCase();
+                System.out.println("Waiting for client username.\n");
+                while(true) {
+                    //clientName = getScan().next().toLowerCase();
+                    clientName = inputClient.readUTF();
+                    if (checkNameList.contains(clientName.toLowerCase())) {
+                        outputClient.writeUTF("no");
+                        System.out.println("Invalid. Waiting for new username.\n");
+                    } else {
+                        outputClient.writeUTF("ok");
+                        System.out.println(clientName + " has joined the waitlist.\n");
+                        break;
+                    }
                 }
+
                 ClientHandler clientThread = new ClientHandler(client, clientName, clientList, inputClient, outputClient);
                 clientList.add(clientThread);
                 pool.execute(clientThread);
@@ -102,7 +109,7 @@ public class Server {
                 Thread thread = new Thread(clientThread);
             }
 
-            System.out.println("Updated List of Everyone: " + checkNameList);
+            System.out.println("Updated Waitlist: " + checkNameList + "\n");
         }
 
     }

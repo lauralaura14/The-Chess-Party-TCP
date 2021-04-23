@@ -16,6 +16,8 @@ public class Client {
     private Socket socket;
     private DataInputStream input;
     private DataOutputStream output;
+    private DataInputStream inServerStream;
+    private DataInputStream outServerStream;
     private static final String serverIP = "127.0.0.1";
     private static final int port = 5000;
     private static final Scanner scan = new Scanner(System.in);
@@ -160,9 +162,22 @@ public class Client {
 
         DataInputStream inputStream = new DataInputStream(socket.getInputStream());
         DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-        //System.out.println("enter username");
-        //String id = getScan().nextLine();
-        String id = inputStream.readUTF();
+
+        String id;
+
+        System.out.print("Enter username: ");
+
+        while(true) {
+            id = getScan().nextLine();
+            outputStream.writeUTF(id);
+            String receive = inputStream.readUTF();
+            if(receive.equals("no")) {
+                System.out.println("Username " + id + " unavailable. \nEnter new username: ");
+            } else if(receive.equals("ok")) {
+                break;
+            }
+        }
+
         setClientID(id);
         //ServerConnection serverConn = new ServerConnection(socket, getClientID());
 
