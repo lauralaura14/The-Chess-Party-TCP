@@ -84,7 +84,7 @@ public class Server {
             System.out.println("[Server] Connected to client\n");
             connected = true;
 
-            System.out.println("Current List of Clients Connected to Server: " + checkNameList + "\n");
+            //System.out.println("Current List of Clients Connected to Server: " + checkNameList + "\n");
 
             if(connected) {
                 System.out.println("Waiting for client username.\n");
