@@ -71,7 +71,7 @@ public class ClientHandler implements Runnable {
                     closeConnection();
                 }
 
-                //incoming msg broken down below
+                //incoming msg separated into receiver name and message itself
                 String receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
                 String msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
 
