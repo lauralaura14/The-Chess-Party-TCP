@@ -102,9 +102,10 @@ public class Server {
 
                 ClientHandler clientThread = new ClientHandler(client, clientName, clientList, inputClient, outputClient);
                 clientList.add(clientThread);
-                pool.execute(clientThread);
+                //pool.execute(clientThread);
                 checkNameList.add(clientName);
-                Thread thread = new Thread(clientThread);
+                Thread threadClient = new Thread(clientThread);
+                threadClient.start();
             }
 
             //System.out.println("Updated List of Clients Connected: " + checkNameList + "\n");
