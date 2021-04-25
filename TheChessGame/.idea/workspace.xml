@@ -6,16 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="59bbda6a-f72f-4441-9138-a8faaacacc49" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/GameBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Queen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Rook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/ClientHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Bishop.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Bishop.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Rook.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Rook.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,14 +171,9 @@
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Rook.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Rook.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="54" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java</url>
+          <line>101</line>
+          <option name="timeStamp" value="55" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
