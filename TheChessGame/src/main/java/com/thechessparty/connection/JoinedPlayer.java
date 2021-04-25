@@ -21,6 +21,5 @@ public class JoinedPlayer {
     public String getColor() {
         return this.color;
     }
-    //add color determined later
 
 }

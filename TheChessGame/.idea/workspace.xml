@@ -3,12 +3,43 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:upstream" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="59bbda6a-f72f-4441-9138-a8faaacacc49" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/JoinedPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/JoinedPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ServerConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ServerConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/ServerConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/ServerConnection.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,8 +134,8 @@
     </configuration>
     <list>
       <item itemvalue="Application.Client1" />
-      <item itemvalue="Application.Server" />
       <item itemvalue="Application.GameManager" />
+      <item itemvalue="Application.Server" />
       <item itemvalue="JUnit.BoardTests.printBoard" />
     </list>
     <recent_temporary>
@@ -144,26 +175,34 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619145077935" />
-    <state width="1877" height="642" key="GridCell.Tab.0.bottom" timestamp="1619158000771">
+    <state width="1877" height="366" key="GridCell.Tab.0.bottom" timestamp="1619370321548">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="642" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619158000771" />
-    <state width="1877" height="642" key="GridCell.Tab.0.center" timestamp="1619158000771">
+    <state width="1877" height="366" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619370321548" />
+    <state width="1877" height="366" key="GridCell.Tab.0.center" timestamp="1619370321548">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="642" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619158000771" />
-    <state width="1877" height="642" key="GridCell.Tab.0.left" timestamp="1619158000771">
+    <state width="1877" height="366" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619370321548" />
+    <state width="1877" height="366" key="GridCell.Tab.0.left" timestamp="1619370321548">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="642" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619158000771" />
-    <state width="1877" height="642" key="GridCell.Tab.0.right" timestamp="1619158000771">
+    <state width="1877" height="366" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619370321548" />
+    <state width="1877" height="366" key="GridCell.Tab.0.right" timestamp="1619370321548">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="642" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619158000771" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1619150258576">
+    <state width="1877" height="366" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619370321548" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1619370472711">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619150258576" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619370472711" />
+    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1619232683337">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619232683337" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1619296942290">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619296942290" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

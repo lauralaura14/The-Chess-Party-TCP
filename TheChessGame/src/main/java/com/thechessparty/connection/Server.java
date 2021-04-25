@@ -20,7 +20,6 @@ public class Server {
     private static String clientName;
 
     private static ArrayList<String> checkNameList = new ArrayList<>();
-    //public static int playerCounter;
 
     // Server class variables
     private static final ArrayList<ClientHandler> clientList = new ArrayList<>();
@@ -85,7 +84,7 @@ public class Server {
             System.out.println("[Server] Connected to client\n");
             connected = true;
 
-            System.out.println("Current List of Available Players: " + checkNameList + "\n");
+            System.out.println("Current List of Clients Connected to Server: " + checkNameList + "\n");
 
             if(connected) {
                 System.out.println("Waiting for client username.\n");
@@ -94,10 +93,9 @@ public class Server {
                     clientName = inputClient.readUTF();
                     if (checkNameList.contains(clientName.toLowerCase())) {
                         outputClient.writeUTF("no");
-                        System.out.println("Invalid. Waiting for new username.\n");
                     } else {
                         outputClient.writeUTF("ok");
-                        System.out.println(clientName + " has joined the waitlist.\n");
+                        System.out.println(clientName + " has connected.\n");
                         break;
                     }
                 }
@@ -109,7 +107,9 @@ public class Server {
                 Thread thread = new Thread(clientThread);
             }
 
-            System.out.println("Updated Waitlist: " + checkNameList + "\n");
+            //System.out.println("Updated List of Clients Connected: " + checkNameList + "\n");
+
+
         }
 
     }

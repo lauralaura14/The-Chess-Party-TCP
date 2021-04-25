@@ -14,8 +14,10 @@ public class ClientHandler implements Runnable {
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
     private String clientName;
+    private String status;
     private JoinedPlayer firstPlayer;
     private JoinedPlayer secondPlayer;
+    private ArrayList<String> nameStatus = new ArrayList<>();
 
     // constructor
     public ClientHandler(Socket clientSocket, String clientName, ArrayList<ClientHandler> clientList, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
@@ -32,80 +34,103 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
-        String inputMsg;
-
         try {
-            outputStream.writeUTF(getClientName());
-            outputStream.writeUTF("\nWelcome " + getClientName() + ". " + "\n\nCurrent Available Waiting Player(s): ");
+            String inputMsg;
 
-            String list = "";
+            outputStream.writeUTF("Welcome " + getClientName() + ".\n");
 
-            for(int i = 0; i < clientList.size()-1; i++) {
-                list += clientList.get(i).getClientName() + " ";
+            this.setStatus("available");
+            nameStatusAdd();
+
+            for(ClientHandler each : clientList) {
+                if(each.getStatus().equals("available"))
+                each.outputStream.writeUTF("Current List: " + nameStatus.toString());
             }
 
-            if(list != "") {
-                outputStream.writeUTF(list + "\n\nPlease message player you want to play with strictly following this format and replies." +
-                        "\nExample: Bob is player you want to message. 'Request' to request game, 'no' to reject, 'yes' to accept." +
-                        "\nbob: request | bob: no | bob: yes\n");
+            outputStream.writeUTF("\nPlease message player you want to play with strictly following this format." +
+                        "\n'Request' to request game, 'no' to reject, 'yes' to accept. For example: " +
+                        "\nname: request | name: no | name: yes\n");
 
-            } else {
-                outputStream.writeUTF("\nYou're the only one waiting.\n");
-            }
-
-
-            //messaging client to client (please check receiving client to see msgs are coming through properly. sometimes letters disappear/weird symbols pop up).
-
-            outerLoop:
+            //messaging client to client.
+            outer:
             while (true) {
                 inputMsg = inputStream.readUTF();
-                System.out.println(inputMsg);
+
+                if(inputMsg.equals("disconnect")) {
+                    setStatus("disconnected");
+                    nameStatus.clear();
+                    nameStatusAdd();
+
+                    for(ClientHandler each : clientList) {
+                        if(each.getStatus().equals("available"))
+                            each.outputStream.writeUTF("Current List: " + nameStatus.toString());
+                    }
+                    inputStream.close();
+                    outputStream.close();
+                    closeConnection();
+                }
 
                 //incoming msg broken down below
                 String receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
                 String msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
 
-                if (!msg.equals("request") && !msg.equals("yes") && !msg.equals("no")) {
-                    outputStream.writeUTF("\nInvalid Response. Try again.\n");
+                if(receiverName.equals(getClientName())) {
+                    outputStream.writeUTF("\nYou cannot message yourself. Try again.\n");
                 } else {
-                    //check to see if receiverName exists in clientList
-                    label:
-                    for (ClientHandler each : clientList) {
-                        if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase())) {
-                            each.outputStream.writeUTF(this.clientName + " says " + "'" + msg + "'");
-                            outputStream.flush();
+                    for (ClientHandler each : clientList) {  //see if name of person receiving msg exists
+                        if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase()) && !each.getStatus().equals("available")) {
+                            outputStream.writeUTF(each.clientName + " is unavailable. Make request to an available client.\n");
+                            break;
+                        } else if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase()) && each.getStatus().equals("available")) {
+                            if (!msg.equals("request") && !msg.equals("yes") && !msg.equals("no")) {
+                                outputStream.writeUTF("\nInvalid Response. Try again.\n");
+                                break;
+                            } else {
+                                each.outputStream.writeUTF(getClientName() + " says " + "'" + msg + "'");
+                            }
                             //person requesting automatically heads
                             switch (msg) {
                                 case "request":
-                                    break label;
+                                    break;
                                 case "no":
-                                    each.outputStream.writeUTF("\n" + this.clientName + " denied your request. Choose another available player.\n");
-                                    outputStream.flush();
-                                    break label;
+                                    each.outputStream.writeUTF("\n" + getClientName() + " denied your request. Choose another available player.\n");
+                                    break;
                                 case "yes":
                                     each.outputStream.writeUTF("\nSince you requested, you are automatically heads, " + each.clientName + ".\n...");
                                     outputStream.writeUTF("\nPlayer who accepts is automatically tails, " + this.clientName + ".\n...");
 
                                     if (coinToss() == "heads") {
-                                        firstPlayer = new JoinedPlayer(this.client, this.clientName, "white");  //the one who made request (auto heads)
+                                        firstPlayer = new JoinedPlayer(this.client, getClientName(), "white");  //the one who made request (auto heads)
                                         secondPlayer = new JoinedPlayer(each.client, each.getClientName(), "black");  //the one who accepted
 
-                                        outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + this.clientName + ".");
-                                        each.outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + each.clientName + ".");
+                                        outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + firstPlayer.getName() + ".");
+                                        each.outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + secondPlayer.getName() + ".");
                                     } else {
                                         firstPlayer = new JoinedPlayer(each.client, each.getClientName(), "white");  //the one who accepted
-                                        secondPlayer = new JoinedPlayer(this.client, this.clientName, "black");  //the one who made request
+                                        secondPlayer = new JoinedPlayer(this.client, getClientName(), "black");  //the one who made request
 
-                                        each.outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + each.clientName + ".");
-                                        outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + this.clientName + ".");
+                                        each.outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + firstPlayer.getName() + ".");
+                                        outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + secondPlayer.getName() + ".");
 
                                     }
-                                    break outerLoop;
+                                    each.setStatus("playing");
+                                    this.setStatus("playing");
+
+                                    break outer;
                             }
                         }
                     }
                 }
             }
+
+            nameStatus.clear();
+            nameStatusAdd();
+
+            for(ClientHandler each : clientList) {
+                if(each.getStatus().equals("available"))
+                    each.outputStream.writeUTF("Current List: " + nameStatus.toString());
+            }
+
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
@@ -118,7 +143,8 @@ public class ClientHandler implements Runnable {
         }
          */
 
-    }
+}
+
 
 /*
 //original
@@ -165,6 +191,14 @@ public class ClientHandler implements Runnable {
         } else {
             side = "tails";
             return side;
+        }
+    }
+
+    private void nameStatusAdd() {
+        for(ClientHandler each : clientList) {
+            if(each.getStatus().equals("available")) {
+                nameStatus.add(each.getClientName() + " - " + each.getStatus());
+            }
         }
     }
 
@@ -223,5 +257,13 @@ public class ClientHandler implements Runnable {
 
     public String getClientName() {
         return clientName;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

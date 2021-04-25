@@ -3,6 +3,12 @@ package com.thechessparty.connection;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * NOT IN USE AT THIS TIME. REMOVED THREAD START FROM CLIENT.
+ */
+
+
+
 public class ServerConnection implements Runnable {
 
     // instance variables

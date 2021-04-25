@@ -25,33 +25,32 @@ public class Client {
     private static Thread IncomingPrivateMsg;
     private static Thread OutgoingPrivateMsg;
 
-/*
-    // constructor to set ip address and port
-    public Client(String address, int port) {
-        // establish a connection
-        try {
-            setServerIP(address);
-            setSocket(new Socket(address, port));
-            System.out.println("Connected at address" + Client.getServerIp() + " on port" + getPort());
+        // constructor to set ip address and port
+     public Client(String address, int port) {
+         // establish a connection
+         try {
+             setServerIP(address);
+             setSocket(new Socket(address, port));
+             System.out.println("Connected at address" + Client.getServerIp() + " on port" + getPort());
 
-            // takes input from terminal
-            this.input = new DataInputStream(System.in);
+             // takes input from terminal
+             this.input = new DataInputStream(System.in);
 
-            // sends output to the socket
-            this.output = new DataOutputStream(socket.getOutputStream());
+             // sends output to the socket
+             this.output = new DataOutputStream(socket.getOutputStream());
 
-        } catch (UnknownHostException u) {
-            System.out.println(u.getMessage());
-        } catch (IOException i) {
-            System.out.println(i.getMessage());
-        }
-    }
+         } catch (UnknownHostException u) {
+             System.out.println(u.getMessage());
+         } catch (IOException i) {
+             System.out.println(i.getMessage());
+         }
+     }
 
-    /**
-     * Logic for running the client
-     * NOTE: currently not in use
-     * TODO: possibly try to refactor the logic in the main method to this method
-     */
+        /**
+         * Logic for running the client
+         * NOTE: currently not in use
+         * TODO: possibly try to refactor the logic in the main method to this method
+         */
     public void runClient() {
         // string to read message from input
         String line = "";
@@ -172,7 +171,7 @@ public class Client {
             outputStream.writeUTF(id);
             String receive = inputStream.readUTF();
             if(receive.equals("no")) {
-                System.out.println("Username " + id + " unavailable. \nEnter new username: ");
+                System.out.print("\nUsername " + id + " unavailable. Enter new username: ");
             } else if(receive.equals("ok")) {
                 break;
             }
@@ -186,21 +185,14 @@ public class Client {
 
         //new Thread(serverConn).start();
 
-        System.out.println("Connection made at ip: " + getServerIp() + " on port: " + getPort());
+        System.out.println("\nConnection made at ip: " + getServerIp() + " on port: " + getPort() + ".\n");
 
-        String waitList = inputStream.readUTF();
-        System.out.println(waitList);
 
-        String currentStateMsg = inputStream.readUTF();
-        System.out.println(currentStateMsg);
-
-        /**
-         * outgoing message client to client
-         */
+        //outgoing message client to client
         outgoingPrivateMsg = new Thread(new Runnable() {
-            @Override
+            private volatile boolean exit = false;
             public void run() {
-                while(true) {
+                while(!exit) {
                     String msg = scan.nextLine();
                     try {
                         outputStream.writeUTF(msg);
@@ -209,15 +201,16 @@ public class Client {
                     }
                 }
             }
+            public void stop() {
+                exit = true;
+            }
         });
 
-        /**
-         * incoming message client to client
-         */
+        //incoming message client to client
         incomingPrivateMsg = new Thread(new Runnable() {
-            @Override
+            public volatile boolean exit = false;
             public void run() {
-                while(true) {
+                while(!exit) {
                     try {
                         String msg = inputStream.readUTF();
                         System.out.println(msg);
@@ -226,9 +219,13 @@ public class Client {
                     }
                 }
             }
+            public void stop() {
+                exit = true;
+            }
         });
         outgoingPrivateMsg.start();
         incomingPrivateMsg.start();
+
 /*
         while (true) {
             System.out.println("[" + getClientID() + "]> ");
