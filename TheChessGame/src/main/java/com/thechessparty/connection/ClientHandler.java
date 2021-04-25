@@ -3,6 +3,7 @@ package com.thechessparty.connection;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClientHandler implements Runnable {
 
@@ -10,14 +11,14 @@ public class ClientHandler implements Runnable {
     private Socket client;
     private BufferedReader input;
     private PrintWriter output;
-    private ArrayList<ClientHandler> clientList;
-    private DataInputStream inputStream;
-    private DataOutputStream outputStream;
+    private final ArrayList<ClientHandler> clientList;
+    private final DataInputStream inputStream;
+    private final DataOutputStream outputStream;
     private String clientName;
     private String status;
     private JoinedPlayer firstPlayer;
     private JoinedPlayer secondPlayer;
-    private ArrayList<String> nameStatus = new ArrayList<>();
+    private final List<String> nameStatus = new ArrayList<>();
 
     // constructor
     public ClientHandler(Socket clientSocket, String clientName, ArrayList<ClientHandler> clientList, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
@@ -42,27 +43,27 @@ public class ClientHandler implements Runnable {
             this.setStatus("available");
             nameStatusAdd();
 
-            for(ClientHandler each : clientList) {
-                if(each.getStatus().equals("available"))
-                each.outputStream.writeUTF("Current List: " + nameStatus.toString());
+            for (ClientHandler each : clientList) {
+                if (each.getStatus().equals("available"))
+                    each.outputStream.writeUTF("Current List: " + nameStatus.toString());
             }
 
             outputStream.writeUTF("\nPlease message player you want to play with strictly following this format." +
-                        "\n'Request' to request game, 'no' to reject, 'yes' to accept. For example: " +
-                        "\nname: request | name: no | name: yes\n");
+                    "\n'Request' to request game, 'no' to reject, 'yes' to accept. For example: " +
+                    "\nname: request | name: no | name: yes\n");
 
             //messaging client to client.
             outer:
             while (true) {
                 inputMsg = inputStream.readUTF();
 
-                if(inputMsg.equals("disconnect")) {
+                if (inputMsg.equals("disconnect")) {
                     setStatus("disconnected");
                     nameStatus.clear();
                     nameStatusAdd();
 
-                    for(ClientHandler each : clientList) {
-                        if(each.getStatus().equals("available"))
+                    for (ClientHandler each : clientList) {
+                        if (each.getStatus().equals("available"))
                             each.outputStream.writeUTF("Current List: " + nameStatus.toString());
                     }
                     inputStream.close();
@@ -74,7 +75,7 @@ public class ClientHandler implements Runnable {
                 String receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
                 String msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
 
-                if(receiverName.equals(getClientName())) {
+                if (receiverName.equals(getClientName())) {
                     outputStream.writeUTF("\nYou cannot message yourself. Try again.\n");
                 } else {
                     for (ClientHandler each : clientList) {  //see if name of person receiving msg exists
@@ -126,8 +127,8 @@ public class ClientHandler implements Runnable {
             nameStatus.clear();
             nameStatusAdd();
 
-            for(ClientHandler each : clientList) {
-                if(each.getStatus().equals("available"))
+            for (ClientHandler each : clientList) {
+                if (each.getStatus().equals("available"))
                     each.outputStream.writeUTF("Current List: " + nameStatus.toString());
             }
 
@@ -143,7 +144,7 @@ public class ClientHandler implements Runnable {
         }
          */
 
-}
+    }
 
 
 /*
@@ -185,7 +186,7 @@ public class ClientHandler implements Runnable {
     private String coinToss() {
         String side;
 
-        if(Math.random() <= 0.5) {
+        if (Math.random() <= 0.5) {
             side = "heads";
             return side;
         } else {
@@ -195,8 +196,8 @@ public class ClientHandler implements Runnable {
     }
 
     private void nameStatusAdd() {
-        for(ClientHandler each : clientList) {
-            if(each.getStatus().equals("available")) {
+        for (ClientHandler each : clientList) {
+            if (each.getStatus().equals("available")) {
                 nameStatus.add(each.getClientName() + " - " + each.getStatus());
             }
         }

@@ -40,7 +40,7 @@ public class GameBoard {
     //-------------- public methods ----------------------------
 
     public Tile getTile(final int coordinate) {
-        return null;
+        return gameBoard.get(coordinate);
     }
 
     /**
@@ -54,7 +54,9 @@ public class GameBoard {
         final List<Move> moves = new ArrayList<>();
 
         for (final Piece piece : pieces) {
-            //moves.addAll(piece.listLegalMoves(this));
+            if(piece instanceof Knight || piece instanceof Rook || piece instanceof Bishop) {
+                moves.addAll(piece.listLegalMoves(this));
+            }
         }
         return ImmutableList.copyOf(moves);
     }

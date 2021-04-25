@@ -49,7 +49,7 @@ public class Knight extends Piece {
                     continue;
                 }
 
-                final Tile destinationTile = board.getTile(current);
+                final Tile destinationTile = board.getTile(destination);
 
                 // if destination Tile is not occupied get NormalMove
                 if (!destinationTile.isTileOccupied()) {
