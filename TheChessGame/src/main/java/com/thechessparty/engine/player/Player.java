@@ -85,7 +85,7 @@ public abstract class Player {
      * @return true if the conditions of a draw are met on the board
      */
     public boolean isDraw() {
-        return !getInCheck() && !hasEscape();
+        return !getIsInCheck() && !hasEscape();
     }
 
     public boolean isCastled() {
@@ -158,7 +158,7 @@ public abstract class Player {
         return legalMoves;
     }
 
-    public boolean getInCheck() {
-        return false;
+    public boolean getIsInCheck() {
+        return this.inCheck;
     }
 }

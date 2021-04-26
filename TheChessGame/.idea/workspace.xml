@@ -4,48 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="59bbda6a-f72f-4441-9138-a8faaacacc49" name="Default Changelist" comment="" />
+=======
     <list default="true" id="59bbda6a-f72f-4441-9138-a8faaacacc49" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/moveset/AttackMove.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/moveset/Move.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/moveset/NormalMove.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/AttackMove.java" beforeDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/GameBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/Move.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/NormalMove.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/Tile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Knight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Queen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/pieces/Rook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/BlackPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/BlackPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Status.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Transition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Transition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/WhitePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/WhitePlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/Team.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/Team.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/AttackMove.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/GameBoard$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/GameBoard$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/GameBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/GameBoard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/Move.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/board/NormalMove.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Bishop.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Bishop.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/King.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/King.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Knight.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Knight.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Pawn.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Pawn.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Piece.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Queen.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Queen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Rook.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/pieces/Rook.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/BlackPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/BlackPlayer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Status.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Status.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Transition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Transition.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/WhitePlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/WhitePlayer.class" afterDir="false" />
+=======
+>>>>>>> 33ebb2147ccaeef6efd7dbd49829b43801a8ad37
     </list>
+>>>>>>> lauralaura14-thread-start-fix
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,7 +29,19 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="thread-start-fix" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/dongyongkim603/The-Chess-Party-TCP" />
+      </set>
+    </option>
   </component>
   <component name="ProjectId" id="1r2fIISd0lmhrsWIzDGcZvMe3un" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -80,8 +61,25 @@
       <recent name="com.thechessparty.engine.player" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Application.GameManager">
+=======
+  <component name="RunManager" selected="Application.Server">
+>>>>>>> 33ebb2147ccaeef6efd7dbd49829b43801a8ad37
     <configuration name="Client1" type="Application" factoryName="Application" singleton="false" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.Client" />
+      <module name="TheChessGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.thechessparty.connection.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Client2" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.Client" />
       <module name="TheChessGame" />
       <extension name="coverage">
@@ -137,6 +135,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.Client2" />
       <item itemvalue="Application.Client1" />
       <item itemvalue="Application.Server" />
       <item itemvalue="Application.GameManager" />
@@ -144,10 +143,16 @@
     </list>
     <recent_temporary>
       <list>
+<<<<<<< HEAD
         <item itemvalue="Application.GameManager" />
-        <item itemvalue="JUnit.BoardTests.printBoard" />
         <item itemvalue="Application.Client1" />
         <item itemvalue="Application.Server" />
+=======
+        <item itemvalue="Application.Server" />
+        <item itemvalue="Application.Client1" />
+        <item itemvalue="Application.GameManager" />
+>>>>>>> 33ebb2147ccaeef6efd7dbd49829b43801a8ad37
+        <item itemvalue="JUnit.BoardTests.printBoard" />
       </list>
     </recent_temporary>
   </component>
@@ -174,35 +179,74 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="WindowStateProjectService">
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1619145077935">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619145077935" />
+    <state width="1877" height="366" key="GridCell.Tab.0.bottom" timestamp="1619384284373">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="366" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619384284373" />
+    <state width="1877" height="366" key="GridCell.Tab.0.center" timestamp="1619384284373">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="366" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619384284373" />
+    <state width="1877" height="366" key="GridCell.Tab.0.left" timestamp="1619384284373">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="366" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619384284373" />
+    <state width="1877" height="366" key="GridCell.Tab.0.right" timestamp="1619384284373">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="366" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619384284373" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1619384284426">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619384284426" />
+    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1619232683337">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619232683337" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1619296942290">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619296942290" />
+  </component>
+>>>>>>> 33ebb2147ccaeef6efd7dbd49829b43801a8ad37
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java</url>
           <line>40</line>
-          <option name="timeStamp" value="1" />
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java</url>
-          <line>18</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/engine/board/GameBoard.java</url>
-          <line>56</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="5" />
+          <line>101</line>
+          <option name="timeStamp" value="55" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
+        <PinnedItemInfo parentTag="com.thechessparty.engine.player.WhitePlayer" memberName="king" />
+        <PinnedItemInfo parentTag="com.thechessparty.engine.player.WhitePlayer" memberName="board" />
         <PinnedItemInfo parentTag="com.thechessparty.engine.board.GameBoard" memberName="gameBoard" />
       </pinned-members>
     </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="w.legalMoves" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

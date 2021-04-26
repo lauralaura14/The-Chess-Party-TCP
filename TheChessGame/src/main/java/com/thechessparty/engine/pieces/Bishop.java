@@ -1,9 +1,15 @@
 package com.thechessparty.engine.pieces;
 
+import com.google.common.collect.ImmutableList;
 import com.thechessparty.engine.Team;
+import com.thechessparty.engine.board.BoardUtilites;
 import com.thechessparty.engine.board.GameBoard;
+import com.thechessparty.engine.board.Tile;
+import com.thechessparty.engine.moveset.AttackMove;
 import com.thechessparty.engine.moveset.Move;
+import com.thechessparty.engine.moveset.NormalMove;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bishop extends Piece {
@@ -31,7 +37,7 @@ public class Bishop extends Piece {
                   destination += current;
                
                 if (BoardUtilites.isValidMove(destination)) {
-                   final Tile destinationTile = board.getTile(current);
+                   final Tile destinationTile = board.getTile(destination);
 
                 // if destination Tile is not occupied get NormalMove
                 if (!destinationTile.isTileOccupied()) {
@@ -50,7 +56,7 @@ public class Bishop extends Piece {
         }
     }
 
-        return ImmutableList.copyOf(legalMoves);   
+        return ImmutableList.copyOf(legalMoves);
 }
 
 //----------- private helper methods ---------------------
