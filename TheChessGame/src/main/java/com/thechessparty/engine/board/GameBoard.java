@@ -79,14 +79,14 @@ public class GameBoard {
         Bishop blkLBishop = new Bishop(5, Team.BLACK);
         Knight blkLKnight = new Knight(6, Team.BLACK);
         Rook blkLRook = new Rook(7, Team.BLACK);
-//        Pawn blkPawn0 = new Pawn(8, Team.BLACK);
-//        Pawn blkPawn1 = new Pawn(9, Team.BLACK);
-//        Pawn blkPawn2 = new Pawn(10, Team.BLACK);
-//        Pawn blkPawn3 = new Pawn(11, Team.BLACK);
-//        Pawn blkPawn4 = new Pawn(12, Team.BLACK);
-//        Pawn blkPawn5 = new Pawn(13, Team.BLACK);
-//        Pawn blkPawn6 = new Pawn(14, Team.BLACK);
-//        Pawn blkPawn7 = new Pawn(15, Team.BLACK);
+        Pawn blkPawn0 = new Pawn(8, Team.BLACK);
+        Pawn blkPawn1 = new Pawn(9, Team.BLACK);
+        Pawn blkPawn2 = new Pawn(10, Team.BLACK);
+        Pawn blkPawn3 = new Pawn(11, Team.BLACK);
+        Pawn blkPawn4 = new Pawn(12, Team.BLACK);
+        Pawn blkPawn5 = new Pawn(13, Team.BLACK);
+        Pawn blkPawn6 = new Pawn(14, Team.BLACK);
+        Pawn blkPawn7 = new Pawn(15, Team.BLACK);
 
         // The white teams pieces at their initial position
         Rook whtRRook = new Rook(56, Team.WHITE);
@@ -97,14 +97,14 @@ public class GameBoard {
         Bishop whtLBishop = new Bishop(61, Team.WHITE);
         Knight whtLKnight = new Knight(62, Team.WHITE);
         Rook whtLRook = new Rook(63, Team.WHITE);
-//        Pawn whtPawn0 = new Pawn(48, Team.WHITE);
-//        Pawn whtPawn1 = new Pawn(49, Team.WHITE);
-//        Pawn whtPawn2 = new Pawn(50, Team.WHITE);
-//        Pawn whtPawn3 = new Pawn(51, Team.WHITE);
-//        Pawn whtPawn4 = new Pawn(52, Team.WHITE);
-//        Pawn whtPawn5 = new Pawn(53, Team.WHITE);
-//        Pawn whtPawn6 = new Pawn(54, Team.WHITE);
-//        Pawn whtPawn7 = new Pawn(55, Team.WHITE);
+        Pawn whtPawn0 = new Pawn(48, Team.WHITE);
+        Pawn whtPawn1 = new Pawn(49, Team.WHITE);
+        Pawn whtPawn2 = new Pawn(50, Team.WHITE);
+        Pawn whtPawn3 = new Pawn(51, Team.WHITE);
+        Pawn whtPawn4 = new Pawn(52, Team.WHITE);
+        Pawn whtPawn5 = new Pawn(53, Team.WHITE);
+        Pawn whtPawn6 = new Pawn(54, Team.WHITE);
+        Pawn whtPawn7 = new Pawn(55, Team.WHITE);
 
         //sets the black pieces to the board
         b.setPiece(blkRRook);
@@ -115,14 +115,14 @@ public class GameBoard {
         b.setPiece(blkLBishop);
         b.setPiece(blkLKnight);
         b.setPiece(blkLRook);
-//        b.setPiece(blkPawn0);
-//        b.setPiece(blkPawn1);
-//        b.setPiece(blkPawn2);
-//        b.setPiece(blkPawn3);
-//        b.setPiece(blkPawn4);
-//        b.setPiece(blkPawn5);
-//        b.setPiece(blkPawn6);
-//        b.setPiece(blkPawn7);
+        b.setPiece(blkPawn0);
+        b.setPiece(blkPawn1);
+        b.setPiece(blkPawn2);
+        b.setPiece(blkPawn3);
+        b.setPiece(blkPawn4);
+        b.setPiece(blkPawn5);
+        b.setPiece(blkPawn6);
+        b.setPiece(blkPawn7);
 
         //sets the white pieces to the board
         b.setPiece(whtRRook);
@@ -133,14 +133,14 @@ public class GameBoard {
         b.setPiece(whtLBishop);
         b.setPiece(whtLKnight);
         b.setPiece(whtLRook);
-//        b.setPiece(whtPawn0);
-//        b.setPiece(whtPawn1);
-//        b.setPiece(whtPawn2);
-//        b.setPiece(whtPawn3);
-//        b.setPiece(whtPawn4);
-//        b.setPiece(whtPawn5);
-//        b.setPiece(whtPawn6);
-//        b.setPiece(whtPawn7);
+        b.setPiece(whtPawn0);
+        b.setPiece(whtPawn1);
+        b.setPiece(whtPawn2);
+        b.setPiece(whtPawn3);
+        b.setPiece(whtPawn4);
+        b.setPiece(whtPawn5);
+        b.setPiece(whtPawn6);
+        b.setPiece(whtPawn7);
 
         // The team to go first White as is chess standard
         b.setNextMove(Team.WHITE);
