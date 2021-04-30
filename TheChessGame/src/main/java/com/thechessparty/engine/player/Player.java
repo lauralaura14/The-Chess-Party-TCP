@@ -19,7 +19,9 @@ public abstract class Player {
     private final boolean inCheck;
 
     // constructor
-    public Player(final GameBoard board, final List<Move> playerMoves, List<Move> adversaryMoves) {
+    public Player(final GameBoard board, 
+        final List<Move> playerMoves, 
+        List<Move> adversaryMoves) {
         this.board = board;
         this.king = kingify();
         this.legalMoves = playerMoves;
@@ -70,6 +72,11 @@ public abstract class Player {
         return this.legalMoves.contains(move);
     }
 
+    
+    public boolean inCheck() {
+        return this.inCheck;
+    }
+
     /**
      * looks to see if the player is already in check and if there are no possible escape moves.
      *
@@ -85,7 +92,7 @@ public abstract class Player {
      * @return true if the conditions of a draw are met on the board
      */
     public boolean isDraw() {
-        return !getIsInCheck() && !hasEscape();
+        return !inCheck() && !hasEscape();
     }
 
     public boolean isCastled() {
@@ -158,7 +165,4 @@ public abstract class Player {
         return legalMoves;
     }
 
-    public boolean getIsInCheck() {
-        return this.inCheck;
-    }
 }
