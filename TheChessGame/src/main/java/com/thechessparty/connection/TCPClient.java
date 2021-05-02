@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chesstcp;
+package com.thechessparty.connection;
 
 import com.google.gson.Gson;
 import static com.thechessparty.connection.Client.getClientID;
@@ -45,7 +45,7 @@ public class TCPClient {
                 System.out.println("The JSON of knight is as follows:"+serverResponse +"\n");
                 Knight knight1 = json.fromJson(serverResponse, Knight.class);
                 
-                knight1.Display();
+                //40knight1.Display();
                 break;
                 
             }

@@ -44,7 +44,7 @@ public class ClientHandler implements Runnable {
             nameStatusAdd();
 
             for (ClientHandler each : clientList) {
-                if (each.getStatus().equals("available"))
+                if (each.getStatus().equalsIgnoreCase("available"))
                     each.outputStream.writeUTF("Current List: " + nameStatus.toString());
             }
 
@@ -57,13 +57,13 @@ public class ClientHandler implements Runnable {
             while (true) {
                 inputMsg = inputStream.readUTF();
 
-                if (inputMsg.equals("disconnect")) {
+                if (inputMsg.equalsIgnoreCase("disconnect")) {
                     setStatus("disconnected");
                     nameStatus.clear();
                     nameStatusAdd();
 
                     for (ClientHandler each : clientList) {
-                        if (each.getStatus().equals("available"))
+                        if (each.getStatus().equalsIgnoreCase("available"))
                             each.outputStream.writeUTF("Current List: " + nameStatus.toString());
                     }
                     inputStream.close();
@@ -75,15 +75,15 @@ public class ClientHandler implements Runnable {
                 String receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
                 String msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
 
-                if (receiverName.equals(getClientName())) {
+                if (receiverName.equalsIgnoreCase(getClientName())) {
                     outputStream.writeUTF("\nYou cannot message yourself. Try again.\n");
                 } else {
                     for (ClientHandler each : clientList) {  //see if name of person receiving msg exists
-                        if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase()) && !each.getStatus().equals("available")) {
+                        if (each.getClientName().toLowerCase().equalsIgnoreCase(receiverName.toLowerCase()) && !each.getStatus().equalsIgnoreCase("available")) {
                             outputStream.writeUTF(each.clientName + " is unavailable. Make request to an available client.\n");
                             break;
-                        } else if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase()) && each.getStatus().equals("available")) {
-                            if (!msg.equals("request") && !msg.equals("yes") && !msg.equals("no")) {
+                        } else if (each.getClientName().toLowerCase().equalsIgnoreCase(receiverName.toLowerCase()) && each.getStatus().equalsIgnoreCase("available")) {
+                            if (!msg.equalsIgnoreCase("request") && !msg.equalsIgnoreCase("yes") && !msg.equalsIgnoreCase("no")) {
                                 outputStream.writeUTF("\nInvalid Response. Try again.\n");
                                 break;
                             } else {

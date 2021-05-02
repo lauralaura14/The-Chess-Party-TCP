@@ -85,42 +85,67 @@ public class GameManager implements Runnable {
             b= board.getBlackPlayer();
 
             System.out.println(board);
-            int start = 0, destination = 0;
+            int start = 0, destination = 0, x = 0, y = 0;
+            Move m = null;
+            Piece piece = null;
+            while(m ==null) {
+                if (board.getCurrentPlayer().getTeam().equals(Team.WHITE)) {
+                    System.out.println("WHITE PLAYER: enter x coordinate for starting move");
+                    x = scan.nextInt();
+                    System.out.println("WHITE PLAYER: enter y coordinate for the starting move");
+                    y = scan.nextInt();
+                    start = moveHelper(x, y);
+                    System.out.println("WHITE PLAYER: enter x coordinate for destination move");
+                    x = scan.nextInt();
+                    System.out.println("WHITE PLAYER: enter y coordinate for the destination move");
+                    y = scan.nextInt();
+                    destination = moveHelper(x, y);
+                } else {
+                    System.out.println("BLACK PLAYER: enter x coordinate for starting move");
+                    x = scan.nextInt();
+                    System.out.println("BLACK PLAYER: enter y coordinate for the starting move");
+                    y = scan.nextInt();
+                    start = moveHelper(x, y);
+                    System.out.println("BLACK PLAYER: enter x coordinate for destination move");
+                    x = scan.nextInt();
+                    System.out.println("BLACK PLAYER: enter y coordinate for the destination move");
+                    y = scan.nextInt();
+                    destination = moveHelper(x, y);
+                }
+                System.out.println(start);
+                System.out.println(destination);
 
-            if (board.getCurrentPlayer().getTeam().equals(Team.WHITE)) {
-                System.out.println("WHITE PLAYER: enter coordinate for move");
-                start = scan.nextInt();
-                System.out.println("WHITE PLAYER: enter the Piece to move");
-                destination = scan.nextInt();
-            } else {
-                System.out.println("BLACK PLAYER: enter coordinate for move");
-                start = scan.nextInt();
-                System.out.println("BLACK PLAYER: enter the Piece to move");
-                destination = scan.nextInt();
-            }
+                Tile tile = board.getTile(start);
+                piece = tile.getPiece();
 
-            Tile tile = board.getTile(start);
-            Piece piece = tile.getPiece();
+                m = MoveFactory.createMove(board, start, destination);
+
+                if(m == null){
+                    System.out.println(board);
+                    System.out.println("invalid move");
+                }
+        }
+
             System.out.println("the " + current.getTeam() + " has selected " + piece.toString() + " going to " + destination);
-
-            Move m = MoveFactory.createMove(board, start, destination);
             Transition transition = board.getCurrentPlayer().move(m);
             if (transition.getStatus().isFinished()) {
                 System.out.println(current.getTeam() + " player is finished");
 
                 board = transition.getBoardState();
-                current = board.getCurrentPlayer().getAdversary();
+                current = board.getCurrentPlayer();
             }
 
             if(w.getIsInCheck()){
                 System.out.println("white players king is in check");
             } else if(b.getIsInCheck()){
                 System.out.println("black players king is in check");
-            } else if (w.isDraw() && b.isDraw()) {
-                System.out.println("stalemate");
-                break;
             }
 
         }
+    }
+
+    private int moveHelper(final int x, final int y){
+        final int c = (((x * 8)+ y)-9) % 63;
+        return c;
     }
 }

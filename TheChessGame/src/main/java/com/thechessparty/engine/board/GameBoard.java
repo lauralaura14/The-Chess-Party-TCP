@@ -54,9 +54,9 @@ public class GameBoard {
         final List<Move> moves = new ArrayList<>();
 
         for (final Piece piece : pieces) {
-            if(piece instanceof Knight || piece instanceof Rook || piece instanceof Bishop || piece instanceof Queen) {
+            //if(piece instanceof Knight || piece instanceof Rook || piece instanceof Bishop || piece instanceof Queen) {
                 moves.addAll(piece.listLegalMoves(this));
-            }
+            //}
         }
         return ImmutableList.copyOf(moves);
     }

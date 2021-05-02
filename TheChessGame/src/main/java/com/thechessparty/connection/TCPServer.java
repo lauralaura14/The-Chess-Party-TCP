@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chesstcp;
+package com.thechessparty.connection;
 
 import com.google.gson.Gson;
 import com.thechessparty.connection.ClientHandler;
@@ -42,7 +42,7 @@ public class TCPServer {
             Knight knight = new Knight(0, Team.BLACK);
             Gson json = new Gson();
             System.out.println("The data in knight is as follows:\n");
-            knight.Display();
+            //knight.Display();
             String object = json.toJson(knight);
             System.out.println("The JSON of knight is as follows:"+object +"\n");
             output.println(object);

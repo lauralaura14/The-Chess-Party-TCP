@@ -1,16 +1,20 @@
 package com.thechessparty.engine.pieces;
 
+import com.google.common.collect.ImmutableList;
 import com.thechessparty.engine.Team;
+import com.thechessparty.engine.board.BoardUtilites;
 import com.thechessparty.engine.board.GameBoard;
 import com.thechessparty.engine.moveset.Move;
+import com.thechessparty.engine.moveset.NormalMove;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Pawn extends Piece{
+public class Pawn extends Piece {
 
-    private finale static int[] PAWN_MOVES={8, 16, 7, 9};
+    private final static int[] PAWN_MOVES = {8, 16, 7, 9};
 
-    public Pawn(final int position, final Team team){
+    public Pawn(final int position, final Team team) {
         super(PieceIdentifiers.PAWN, position, team);
     }
 
@@ -19,52 +23,53 @@ public class Pawn extends Piece{
 
         final List<Move> legalMoves = new ArrayList<>();
 
-        for (final int current : PAWN_MOVES){
-           final int destination = getPosition() + (getTeam().getDirection() * current);
+        for (int current : PAWN_MOVES) {
+            final int destination = getPosition() + (getTeam().getDirection() * current);
 
-            if(!BoardUtilities.isValidMove(destination)){
+            if (!BoardUtilites.isValidMove(destination)) {
                 continue;
 
             }
-             if(current==8 && !board.getTile(destination).isTileOccupied()){
+            if (current == 8 && !board.getTile(destination).isTileOccupied()) {
                 //more work to be done deal with promotions
                 legalMoves.add(new NormalMove(board, this, destination));
-             }else if(current == 16 && this.isFirstMove() && 
-                (BoardUtilities.SECOND_ROW [getPosition()] && getTeam().isBlack()) || 
-                (BoardUtilities.SEVENTH_ROW [getPosition()] && getTeam().isWhite())){
+            } else if (current == 16 && this.isFirstMove() &&
+                    (BoardUtilites.SECOND_ROW[getPosition()] && getTeam().isBlack()) ||
+                    (BoardUtilites.SEVENTH_ROW[getPosition()] && getTeam().isWhite())) {
                 final int behindDestination = getPosition() + (getTeam().getDirection() * 8);
-                if(!board.getTile(behindDestination).isTileOccupied() &&
-                 !board.getTile(destination).isTileOccupied()){
+                if (!board.getTile(behindDestination).isTileOccupied() &&
+                        !board.getTile(destination).isTileOccupied()) {
                     legalMoves.add(new NormalMove(board, this, destination));
-                   }
-
-             }else if(current = 7 
-                !((BoardUtilities.EIGHTH_COLUMN[getPosition()] && getTeam().isWhite() ||
-                (BoardUtilities.FIRST_COLUMN[getPosition()] && getTeam().isBlack())) )){
-                if(board.getTile(destination).isTileOccupied()){
-                    final Piece pieceOnCandidate = board.getTile(destination).getPiece();
-                    if(getTeam() != pieceOnCandidate.getTeam()){
-                      legalMoves.add(new NormalMove(board, this, destination));  
-                    }
                 }
-                
-             }else if (current = 9 &&
-                !((BoardUtilities.FIRST_COLUMN[getPosition()] && getTeam().isWhite() ||
-                (BoardUtilities.EIGHTH_COLUMN[getPosition()] && getTeam().isBlack())) )){
-                if(board.getTile(destination).isTileOccupied()){
+
+            } else if (current == 7 &&
+            !((BoardUtilites.EIGHTH_COLUMN[getPosition()] && getTeam().isWhite() ||
+                    (BoardUtilites.FIRST_COLUMN[getPosition()] && getTeam().isBlack())))){
+                if (board.getTile(destination).isTileOccupied()) {
                     final Piece pieceOnCandidate = board.getTile(destination).getPiece();
-                    if(getTeam() != pieceOnCandidate.getTeam()){
-                      legalMoves.add(new NormalMove(board, this, destination));  
+                    if (getTeam() != pieceOnCandidate.getTeam()) {
+                        legalMoves.add(new NormalMove(board, this, destination));
                     }
                 }
 
-             }
-        } 
-        return ImmutableList.copyOf(legalMoves);      
+            }else if (current == 9 &&
+                    !((BoardUtilites.FIRST_COLUMN[getPosition()] && getTeam().isWhite() ||
+                            (BoardUtilites.EIGHTH_COLUMN[getPosition()] && getTeam().isBlack())))) {
+                if (board.getTile(destination).isTileOccupied()) {
+                    final Piece pieceOnCandidate = board.getTile(destination).getPiece();
+                    if (getTeam() != pieceOnCandidate.getTeam()) {
+                        legalMoves.add(new NormalMove(board, this, destination));
+                    }
+                }
+
+            }
+        }
+        return ImmutableList.copyOf(legalMoves);
     }
 
     /**
      * Creates a new Pawn with updated position of Move
+     *
      * @param m the next Move of the Pawn
      * @return a new Bishop with position of Move
      */
@@ -74,7 +79,7 @@ public class Pawn extends Piece{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return PieceIdentifiers.PAWN.toString();
     }
 }

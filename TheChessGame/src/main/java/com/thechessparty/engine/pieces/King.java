@@ -1,21 +1,28 @@
 package com.thechessparty.engine.pieces;
 
+import com.google.common.collect.ImmutableList;
 import com.thechessparty.engine.Team;
+import com.thechessparty.engine.board.BoardUtilites;
 import com.thechessparty.engine.board.GameBoard;
+import com.thechessparty.engine.board.Tile;
+import com.thechessparty.engine.moveset.AttackMove;
 import com.thechessparty.engine.moveset.Move;
+import com.thechessparty.engine.moveset.NormalMove;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class King extends Piece{
+public class King extends Piece {
 
-    private final static int[] KING_MOVES = {-9, -8 , -7, -1, 1, 7, 8, 9};
+    private final static int[] KING_MOVES = {-9, -8, -7, -1, 1, 7, 8, 9};
 
-    public King(int position, final Team team){
+    public King(int position, final Team team) {
         super(PieceIdentifiers.KING, position, team);
     }
 
     /**
      * Creates a new King with the updated position after a move is made
+     *
      * @param m the move of the King
      * @return a new King with position of move
      */
@@ -26,21 +33,21 @@ public class King extends Piece{
 
     @Override
     public List<Move> listLegalMoves(GameBoard board) {
-         
-         final List<Move> legalMoves = new ArrayList<>();
 
-         int destination;
+        final List<Move> legalMoves = new ArrayList<>();
 
-         for(final int current: KING_MOVES){
+        int destination;
 
-            final int destination = getPiece() + current;
+        for (final int current : KING_MOVES) {
 
-            if(isFirstColumn(getPosition(), current) 
-                || isEighthColumn(getPosition(), current)){
+            destination = getPosition() + current;
+
+            if (isFirstColumn(getPosition(), current)
+                    || isEighthColumn(getPosition(), current)) {
                 continue;
             }
 
-            if(BoardUtilites.isValidMove(destination)){
+            if (BoardUtilites.isValidMove(destination)) {
                 final Tile destinationTile = board.getTile(destination);
 
                 // if destination Tile is not occupied get NormalMove
@@ -57,14 +64,13 @@ public class King extends Piece{
                 }
             }
 
-         }
+        }
 
 
-
-         return ImmutableList.copyOf(legalMoves);
+        return ImmutableList.copyOf(legalMoves);
     }
 
-       //----------- private helper methods ---------------------
+    //----------- private helper methods ---------------------
 
     /**
      * Utilizes the constant boolean array that tracks the
@@ -77,7 +83,7 @@ public class King extends Piece{
         return BoardUtilites.FIRST_COLUMN[currentPosition] && ((offset == -9) || (offset == -1) || (offset == 7));
     }
 
-        /**
+    /**
      * Utilizes the constant boolean array that tracks the
      *
      * @param currentPosition current coordinates of the Knight
@@ -85,11 +91,11 @@ public class King extends Piece{
      * @return true if the move can be made false if there is edge case exclusion
      */
     private static boolean isEighthColumn(final int currentPosition, final int offset) {
-        return BoardUtilites.EIGHTH_COLUMN[currentPosition] && ((offset == -7) || (offset == 1)|| (offset == 9));
+        return BoardUtilites.EIGHTH_COLUMN[currentPosition] && ((offset == -7) || (offset == 1) || (offset == 9));
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return PieceIdentifiers.KING.toString();
     }
 }
