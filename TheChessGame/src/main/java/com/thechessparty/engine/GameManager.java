@@ -9,6 +9,7 @@ import com.thechessparty.engine.player.BlackPlayer;
 import com.thechessparty.engine.player.Player;
 import com.thechessparty.engine.player.Transition;
 import com.thechessparty.engine.player.WhitePlayer;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GameManager implements Runnable {
+
+    private static Gson gson = new Gson();
 
     public static void main(String[] args) {
         GameManager gm = new GameManager();
@@ -44,6 +47,7 @@ public class GameManager implements Runnable {
 
     @Override
     public void run() {
+        String gameState = "";
         GameBoard board = GameBoard.createInitialBoard();
         Scanner scan = new Scanner(System.in);
 
@@ -131,13 +135,23 @@ public class GameManager implements Runnable {
             if (transition.getStatus().isFinished()) {
                 System.out.println(current.getTeam() + " player is finished");
 
+                //converts transition state to JSON
+                 gameState = gson.toJson(transition);
+
+                //TODO: send game state Transition to other Client
+
+
+                //TODO: go into waiting state for response
+
+
                 board = transition.getBoardState();
                 current = board.getCurrentPlayer();
+
             }
 
-            if(w.getIsInCheck()){
+            if(w.inCheck()){
                 System.out.println("white players king is in check");
-            } else if(b.getIsInCheck()){
+            } else if(b.inCheck()){
                 System.out.println("black players king is in check");
             }
 

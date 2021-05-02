@@ -46,6 +46,7 @@ public class TCPServer {
             String object = json.toJson(knight);
             System.out.println("The JSON of knight is as follows:"+object +"\n");
             output.println(object);
+            Knight k = json.fromJson(object, Knight.class);
             break;
             
         }
