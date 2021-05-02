@@ -44,13 +44,18 @@ public class ClientHandler implements Runnable {
             nameStatusAdd();
 
             for (ClientHandler each : clientList) {
+<<<<<<< HEAD
                 if (each.getStatus().equalsIgnoreCase("available"))
                     each.outputStream.writeUTF("Current List: " + nameStatus.toString());
+=======
+                if (each.getStatus().equals("available"))
+                    each.outputStream.writeUTF("Current Available Waiting Player(s): " + nameStatus.toString());
+>>>>>>> 9489ccde90b8281c94e4b58c684b152a888b3082
             }
 
             outputStream.writeUTF("\nPlease message player you want to play with strictly following this format." +
-                    "\n'Request' to request game, 'no' to reject, 'yes' to accept. For example: " +
-                    "\nname: request | name: no | name: yes\n");
+                    "\n'game req' to make request, 'no req' to reject, 'yes req' to accept. For example: " +
+                    "\nname: game req | name: no req | name: yes req\n");
 
             //messaging client to client.
             outer:
@@ -63,8 +68,13 @@ public class ClientHandler implements Runnable {
                     nameStatusAdd();
 
                     for (ClientHandler each : clientList) {
+<<<<<<< HEAD
                         if (each.getStatus().equalsIgnoreCase("available"))
                             each.outputStream.writeUTF("Current List: " + nameStatus.toString());
+=======
+                        if (each.getStatus().equals("available"))
+                            each.outputStream.writeUTF("Current Available Waiting Player(s): " + nameStatus.toString());
+>>>>>>> 9489ccde90b8281c94e4b58c684b152a888b3082
                     }
                     inputStream.close();
                     outputStream.close();
@@ -79,6 +89,7 @@ public class ClientHandler implements Runnable {
                     outputStream.writeUTF("\nYou cannot message yourself. Try again.\n");
                 } else {
                     for (ClientHandler each : clientList) {  //see if name of person receiving msg exists
+<<<<<<< HEAD
                         if (each.getClientName().toLowerCase().equalsIgnoreCase(receiverName.toLowerCase()) && !each.getStatus().equalsIgnoreCase("available")) {
                             outputStream.writeUTF(each.clientName + " is unavailable. Make request to an available client.\n");
                             break;
@@ -87,16 +98,26 @@ public class ClientHandler implements Runnable {
                                 outputStream.writeUTF("\nInvalid Response. Try again.\n");
                                 break;
                             } else {
+=======
+                        if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase()) && !each.getStatus().equals("available")) {
+                            outputStream.writeUTF(each.clientName + " is unavailable and cannot chat. Make request to an available client.\n");
+                            break;
+                        } else if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase()) && each.getStatus().equals("available")) {
+                            //if (!msg.equals("request") && !msg.equals("yes") && !msg.equals("no")) {
+                            //    outputStream.writeUTF("\nInvalid Response. Try again.\n");
+                            //    break;
+                            //} else {
+>>>>>>> 9489ccde90b8281c94e4b58c684b152a888b3082
                                 each.outputStream.writeUTF(getClientName() + " says " + "'" + msg + "'");
-                            }
+                            //}
                             //person requesting automatically heads
                             switch (msg) {
-                                case "request":
+                                case "game req":
                                     break;
-                                case "no":
+                                case "no req":
                                     each.outputStream.writeUTF("\n" + getClientName() + " denied your request. Choose another available player.\n");
                                     break;
-                                case "yes":
+                                case "yes req":
                                     each.outputStream.writeUTF("\nSince you requested, you are automatically heads, " + each.clientName + ".\n...");
                                     outputStream.writeUTF("\nPlayer who accepts is automatically tails, " + this.clientName + ".\n...");
 
@@ -129,7 +150,7 @@ public class ClientHandler implements Runnable {
 
             for (ClientHandler each : clientList) {
                 if (each.getStatus().equals("available"))
-                    each.outputStream.writeUTF("Current List: " + nameStatus.toString());
+                    each.outputStream.writeUTF("Current Available Waiting Player(s): " + nameStatus.toString());
             }
 
         } catch (IOException ioException) {

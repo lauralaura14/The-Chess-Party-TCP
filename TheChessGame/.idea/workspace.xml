@@ -3,7 +3,31 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:upstream" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="ba2476cf-4fdb-4493-8cb7-be434fa1f10c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheChessGame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TheChessGame.iml" afterDir="false" />
@@ -48,12 +72,18 @@
       <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Player.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Transition.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/WhitePlayer.class" beforeDir="false" />
+=======
+    <list default="true" id="d4bbe78d-e975-4549-a961-05f1738e2052" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" afterDir="false" />
+>>>>>>> 9489ccde90b8281c94e4b58c684b152a888b3082
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
@@ -64,6 +94,22 @@
   </component>
   <component name="RunManager" selected="Application.GameManager">
     <configuration name="Client 3" type="Application" factoryName="Application" singleton="false">
+=======
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1rgKU6tyBZhGkFgN5nYjYOhpOdD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+  </component>
+  <component name="RunManager" selected="Application.Client">
+    <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+>>>>>>> 9489ccde90b8281c94e4b58c684b152a888b3082
       <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.Client" />
       <module name="TheChessGame" />
       <extension name="coverage">
@@ -76,6 +122,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.Client" />
       <module name="TheChessGame" />
@@ -104,6 +151,10 @@
     </configuration>
     <configuration name="GameManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.thechessparty.engine.GameManager" />
+=======
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.Server" />
+>>>>>>> 9489ccde90b8281c94e4b58c684b152a888b3082
       <module name="TheChessGame" />
       <extension name="coverage">
         <pattern>
@@ -115,6 +166,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.Server" />
       <module name="TheChessGame" />
@@ -138,17 +190,36 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.GameManager" />
+=======
+    <list>
+      <item itemvalue="Application.Client" />
+      <item itemvalue="Application.Server" />
+    </list>
+    <recent_temporary>
+      <list>
+>>>>>>> 9489ccde90b8281c94e4b58c684b152a888b3082
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.Server" />
       </list>
     </recent_temporary>
   </component>
   <component name="TaskManager">
+<<<<<<< HEAD
+=======
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d4bbe78d-e975-4549-a961-05f1738e2052" name="Default Changelist" comment="" />
+      <created>1619392305598</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1619392305598</updated>
+    </task>
+>>>>>>> 9489ccde90b8281c94e4b58c684b152a888b3082
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -173,5 +244,32 @@
         <watch expression="transferBoard" />
       </configuration>
     </watches-manager>
+=======
+  <component name="WindowStateProjectService">
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1619392435450">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619392435450" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1619975957226">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619975957226" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1619975957226">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619975957226" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1619975957226">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619975957226" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1619975957226">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619975957226" />
+    <state x="540" y="262" key="IDE.errors.dialog" timestamp="1619967910408">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="540" y="262" key="IDE.errors.dialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619967910408" />
+>>>>>>> 9489ccde90b8281c94e4b58c684b152a888b3082
   </component>
 </project>
