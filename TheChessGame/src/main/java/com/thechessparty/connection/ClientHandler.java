@@ -53,14 +53,10 @@ public class ClientHandler implements Runnable {
                     "\n'game req' to make request, 'no req' to reject, 'yes req' to accept. For example: " +
                     "\nname: game req | name: no req | name: yes req\n");
 
-            //messaging client to client.
+            //messaging client to client
             outer:
             while (true) {
-                inputMsg = inputStream.readUTF();
-
-                //if (this.getStatus().equals("playing")) {
-                //    break;
-                //}
+                inputMsg = inputStream.readUTF(); //msg typed in from client
 
                 if (inputMsg.equals("disconnect")) {
                     setStatus("disconnected");
@@ -88,12 +84,8 @@ public class ClientHandler implements Runnable {
                             outputStream.writeUTF(each.clientName + " is unavailable and cannot chat. Make request to an available client.\n");
                             break;
                         } else if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase()) && each.getStatus().equals("available")) {
-                            //if (!msg.equals("request") && !msg.equals("yes") && !msg.equals("no")) {
-                            //    outputStream.writeUTF("\nInvalid Response. Try again.\n");
-                            //    break;
-                            //} else {
                             each.outputStream.writeUTF(getClientName() + " says " + "'" + msg + "'");
-                            //}
+
                             //person requesting automatically heads
                             switch (msg) {
                                 case "game req":
@@ -103,7 +95,7 @@ public class ClientHandler implements Runnable {
                                     break;
                                 case "yes req":
                                     each.outputStream.writeUTF("\n" + getClientName() + " accepted your request. Please type '" + getClientName() + ": starting game'.\n");
-                                    break outer;
+                                    break outer; // break out from outer to join messaging with player who made request
                                 case "starting game":
                                     this.outputStream.writeUTF("\nSince you requested, you are automatically heads, " + this.clientName + ".\n...");
                                     each.outputStream.writeUTF("\nPlayer who accepts is automatically tails, " + each.clientName + ".\n...");
@@ -115,9 +107,6 @@ public class ClientHandler implements Runnable {
                                         outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + firstPlayer.getName() + ".");
                                         each.outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + secondPlayer.getName() + ".");
 
-                                        //outputStream.writeUTF("\nYou have joined, " + firstPlayer.getName() + ".\n");
-                                        //each.outputStream.writeUTF("\nPlease type 'join'.\n");
-
                                     } else {
                                         firstPlayer = new JoinedPlayer(each.client, each.getClientName(), "white");  //the one who accepted
                                         secondPlayer = new JoinedPlayer(this.client, getClientName(), "black");  //the one who made request
@@ -125,14 +114,11 @@ public class ClientHandler implements Runnable {
                                         each.outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + firstPlayer.getName() + ".");
                                         outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + secondPlayer.getName() + ".");
 
-                                        //outputStream.writeUTF("\nYou have joined, " + firstPlayer.getName() + ".\n");
-                                        //each.outputStream.writeUTF("\nPlease type 'join'.\n");
-
                                     }
                                     each.setStatus("playing");
                                     this.setStatus("playing");
-                                    statChange = true;
-                                    break outer;
+                                    statChange = true; //used for broadcasting new list of available players
+                                    break outer; //break from outer to join messaging with player who accepted
                             }
                         }
                     }
@@ -149,18 +135,19 @@ public class ClientHandler implements Runnable {
                 }
             }
 
-            // messaging for the 2 players who joined game
+
+            // messaging for the players who joined game
+
             while (true) {
                 inputMsg = inputStream.readUTF();
 
-                if (inputMsg.equals("disconnect")) {
+                if (inputMsg.equals("disconnect")) {  //haven't found a way to let opponent know other player disconnected
                     setStatus("disconnected");
                     inputStream.close();
                     outputStream.close();
                     closeConnection();
                 }
 
-                //incoming msg separated into receiver name and message itself
                 String receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
                 String msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
 
@@ -181,13 +168,13 @@ public class ClientHandler implements Runnable {
             ioException.printStackTrace();
         }
 
-        /*
+
         try {
             closeConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
-         */
+
 
     }
 
