@@ -19,6 +19,7 @@ public class ClientHandler implements Runnable {
     private JoinedPlayer firstPlayer;
     private JoinedPlayer secondPlayer;
     private final List<String> nameStatus = new ArrayList<>();
+    private boolean statChange = false;
 
     // constructor
     public ClientHandler(Socket clientSocket, String clientName, ArrayList<ClientHandler> clientList, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
@@ -57,9 +58,9 @@ public class ClientHandler implements Runnable {
             while (true) {
                 inputMsg = inputStream.readUTF();
 
-                if (this.getStatus().equals("playing")) {
-                    break;
-                }
+                //if (this.getStatus().equals("playing")) {
+                //    break;
+                //}
 
                 if (inputMsg.equals("disconnect")) {
                     setStatus("disconnected");
@@ -83,11 +84,10 @@ public class ClientHandler implements Runnable {
                     outputStream.writeUTF("\nYou cannot message yourself. Try again.\n");
                 } else {
                     for (ClientHandler each : clientList) {  //see if name of person receiving msg exists
-                        //if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase()) && !each.getStatus().equals("available")) {
-                        //    outputStream.writeUTF(each.clientName + " is unavailable and cannot chat. Make request to an available client.\n");
-                        //    break;
-                        //}
-                        if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase()) && each.getStatus().equals("available")) {
+                        if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase()) && !each.getStatus().equals("available")) {
+                            outputStream.writeUTF(each.clientName + " is unavailable and cannot chat. Make request to an available client.\n");
+                            break;
+                        } else if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase()) && each.getStatus().equals("available")) {
                             //if (!msg.equals("request") && !msg.equals("yes") && !msg.equals("no")) {
                             //    outputStream.writeUTF("\nInvalid Response. Try again.\n");
                             //    break;
@@ -102,8 +102,11 @@ public class ClientHandler implements Runnable {
                                     each.outputStream.writeUTF("\n" + getClientName() + " denied your request. Choose another available player.\n");
                                     break;
                                 case "yes req":
-                                    each.outputStream.writeUTF("\nSince you requested, you are automatically heads, " + each.clientName + ".\n...");
-                                    outputStream.writeUTF("\nPlayer who accepts is automatically tails, " + this.clientName + ".\n...");
+                                    each.outputStream.writeUTF("\n" + getClientName() + " accepted your request. Please type '" + getClientName() + ": starting game'.\n");
+                                    break outer;
+                                case "starting game":
+                                    this.outputStream.writeUTF("\nSince you requested, you are automatically heads, " + this.clientName + ".\n...");
+                                    each.outputStream.writeUTF("\nPlayer who accepts is automatically tails, " + each.clientName + ".\n...");
 
                                     if (coinToss() == "heads") {
                                         firstPlayer = new JoinedPlayer(this.client, getClientName(), "white");  //the one who made request (auto heads)
@@ -128,7 +131,7 @@ public class ClientHandler implements Runnable {
                                     }
                                     each.setStatus("playing");
                                     this.setStatus("playing");
-
+                                    statChange = true;
                                     break outer;
                             }
                         }
@@ -136,14 +139,17 @@ public class ClientHandler implements Runnable {
                 }
             }
 
-            nameStatus.clear();
-            nameStatusAdd();
+            if(statChange == true) {
+                nameStatus.clear();
+                nameStatusAdd();
 
-            for (ClientHandler each : clientList) {
-                if (each.getStatus().equals("available"))
-                    each.outputStream.writeUTF("Current Available Waiting Player(s): " + nameStatus.toString());
+                for (ClientHandler each : clientList) {
+                    if (each.getStatus().equals("available"))
+                        each.outputStream.writeUTF("Current Available Waiting Player(s): " + nameStatus.toString());
+                }
             }
 
+            // messaging for the 2 players who joined game
             while (true) {
                 inputMsg = inputStream.readUTF();
 
@@ -164,7 +170,7 @@ public class ClientHandler implements Runnable {
                     for (ClientHandler each : clientList) {  //see if name of person receiving msg exists
                         if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase())) {
                             each.outputStream.writeUTF(getClientName() + " says " + "'" + msg + "'");
-
+                            break;
                         }
                     }
                 }
