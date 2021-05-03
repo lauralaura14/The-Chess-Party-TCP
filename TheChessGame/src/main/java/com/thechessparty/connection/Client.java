@@ -193,9 +193,9 @@ public class Client {
             private volatile boolean exit = false;
             public void run() {
                 while(!exit) {
-                    String msg = scan.nextLine();
+                    String msg = scan.nextLine(); //type in from keyboard
                     try {
-                        outputStream.writeUTF(msg);
+                        outputStream.writeUTF(msg); //send to clientHandler for parsing msg
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -212,7 +212,7 @@ public class Client {
             public void run() {
                 while(!exit) {
                     try {
-                        String msg = inputStream.readUTF();
+                        String msg = inputStream.readUTF(); // msg that comes from clientHandler
                         System.out.println(msg);
                     } catch (IOException e) {
                         e.printStackTrace();
