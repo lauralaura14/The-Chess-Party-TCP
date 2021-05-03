@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="725302b8-1ce0-4a30-b005-28c53531ca68" name="Default Changelist" comment="">
+    <list default="true" id="d68f8672-1a19-4550-84f6-fbe9d1109d1d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/TCPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/TCPServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/ClientHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/TCPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/TCPServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/GameManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/GameManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/moveset/AttackMove.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/moveset/AttackMove.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/moveset/NormalMove.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/moveset/NormalMove.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/player/Player.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +45,20 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/TheChessGame" />
   </component>
-  <component name="RunManager" selected="Application.Server">
+  <component name="RunManager" selected="Application.Client">
+    <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.Client" />
+      <module name="TheChessGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.thechessparty.connection.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GameManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.thechessparty.engine.GameManager" />
       <module name="TheChessGame" />
@@ -111,9 +116,11 @@
       <item itemvalue="Application.TCPServer" />
       <item itemvalue="Application.TCPClient" />
       <item itemvalue="Application.Server" />
+      <item itemvalue="Application.Client" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Client" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.TCPClient" />
         <item itemvalue="Application.TCPServer" />
@@ -124,7 +131,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="725302b8-1ce0-4a30-b005-28c53531ca68" name="Default Changelist" comment="" />
+      <changelist id="d68f8672-1a19-4550-84f6-fbe9d1109d1d" name="Default Changelist" comment="" />
       <created>1617671708328</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -143,6 +150,28 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2334" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1620068689744">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2334" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620068689744" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1620068680778">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620068680778" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1620068680778">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620068680778" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1620068680777">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620068680777" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1620068680778">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620068680778" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
