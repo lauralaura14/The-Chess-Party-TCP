@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Client extends Thread {
+public class Client implements Runnable {
 
     private static Thread outgoingPrivateMsg;
     private static Thread incomingPrivateMsg;
@@ -34,7 +34,7 @@ public class Client extends Thread {
         this("127.0.0.1", 5001, null);
     }
 
-    public Client(Scanner scan){
+    public Client(Scanner scan) {
         this("127.0.0.1", 5001, scan);
     }
 
@@ -60,40 +60,7 @@ public class Client extends Thread {
         }
     }
 
-    /**
-     * Logic for running the client
-     * NOTE: currently not in use
-     * TODO: possibly try to refactor the logic in the main method to this method
-     */
-    public void runClient() {
-        // string to read message from input
-        String line = "";
-
-        // keep reading until "Over" is input
-        while (!line.equals("TERMINATE")) {
-            try {
-                if (getInput() == null) {
-                    System.out.println("no server was connected unable to run the client exiting...");
-                    return;
-                }
-                BufferedReader d
-                        = new BufferedReader(new InputStreamReader(getInput()));
-                line = d.readLine();
-                getOutput().writeUTF(line);
-            } catch (IOException | NullPointerException i) {
-                System.err.println("Error occurred in the runClient method" + i);
-            }
-        }
-
-        // close the connection
-        try {
-            getInput().close();
-            getOutput().close();
-            getSocket().close();
-        } catch (IOException i) {
-            System.out.println(i);
-        }
-    }
+    //------------------- public methods ----------------------
 
     /**
      * Allows the user to set up an ip address they wish to connect to.
@@ -168,100 +135,102 @@ public class Client extends Thread {
         return port;
     }
 
-    //-------------- main access method -------------------------
-
-    public static void main(String args[]) throws IOException {
-        Socket socket = new Socket(getServerIp(), getPort());
-
-        DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-        DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-
-        String id;
-
-        System.out.print("Enter username: ");
-
-        while (true) {
-            id = getScan().nextLine();
-            outputStream.writeUTF(id);
-            String receive = inputStream.readUTF();
-            if (receive.equals("no")) {
-                System.out.print("\nUsername " + id + " unavailable. Enter new username: ");
-            } else if (receive.equals("ok")) {
-                break;
-            }
-        }
-
-        setClientID(id);
-
-        System.out.println("\nConnection made at ip: " + getServerIp() + " on port: " + getPort() + ".\n");
-
-        //outgoing message client to client
-        outgoingPrivateMsg = new Thread(new Runnable() {
-            private volatile boolean exit = false;
-            private volatile boolean userScanner = true;
-
-            public void run() {
-
-                while (!exit) {
-
-                    if (userScanner) {
-                        msg = scanner.nextLine(); //type in from keyboard
-                    }
-                    try {
-                        outputStream.writeUTF(msg); //send to clientHandler for parsing msg
-                        if (msg.contains("Based on coin toss, you are")) {
-                            scanner.close();
-                            userScanner = false;
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            public void stop() {
-                exit = true;
-            }
-        });
-
-        //incoming message client to client
-        incomingPrivateMsg = new Thread(new Runnable() {
-            public volatile boolean exit = false;
-
-            public void run() {
-                Team clientTeam;
-                while (!exit) {
-                    try {
-                        msg = inputStream.readUTF(); // msg that comes from clientHandler
-                        System.out.println(msg);
-                        if (msg.contains("Based on coin toss, you are")) {
-                            System.out.println("the game has started");
-                            if (msg.contains("white")) {
-                                clientTeam = Team.WHITE;
-                            } else {
-                                clientTeam = Team.BLACK;
-                            }
-                            gameManager = new Thread(new GameManager(clientTeam));
-                            gameManager.start();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            public void stop() {
-                exit = true;
-            }
-        });
-
-        outgoingPrivateMsg.start();
-        incomingPrivateMsg.start();
-
-    }
 
     public void startIncomingThead() {
 
+    }
+    
+    @Override
+    public void run() {
+        try {
+
+            input = new DataInputStream(socket.getInputStream());
+            output = new DataOutputStream(socket.getOutputStream());
+
+            String id;
+
+            System.out.print("Enter username: ");
+
+            while (true) {
+                id = getScan().nextLine();
+                output.writeUTF(id);
+                String receive = input.readUTF();
+                if (receive.equals("no")) {
+                    System.out.print("\nUsername " + id + " unavailable. Enter new username: ");
+                } else if (receive.equals("ok")) {
+                    break;
+                }
+            }
+
+            setClientID(id);
+
+            System.out.println("\nConnection made at ip: " + getServerIp() + " on port: " + getPort() + ".\n");
+
+            //outgoing message client to client
+            outgoingPrivateMsg = new Thread(new Runnable() {
+                private volatile boolean exit = false;
+                private volatile boolean userScanner = true;
+
+                public void run() {
+
+                    while (!exit) {
+
+                        if (userScanner) {
+                            msg = scanner.nextLine(); //type in from keyboard
+                        }
+                        try {
+                            output.writeUTF(msg); //send to clientHandler for parsing msg
+                            if (msg.contains("Based on coin toss, you are")) {
+                                scanner.close();
+                                userScanner = false;
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                public void stop() {
+                    exit = true;
+                }
+            });
+
+            //incoming message client to client
+            incomingPrivateMsg = new Thread(new Runnable() {
+                public volatile boolean exit = false;
+
+                public void run() {
+                    Team clientTeam;
+                    while (!exit) {
+                        try {
+                            msg = input.readUTF(); // msg that comes from clientHandler
+                            System.out.println(msg);
+                            if (msg.contains("Based on coin toss, you are")) {
+                                System.out.println("the game has started");
+                                if (msg.contains("white")) {
+                                    clientTeam = Team.WHITE;
+                                } else {
+                                    clientTeam = Team.BLACK;
+                                }
+                                gameManager = new Thread(new GameManager(clientTeam));
+                                gameManager.start();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                public void stop() {
+                    exit = true;
+                }
+            });
+
+            outgoingPrivateMsg.start();
+            incomingPrivateMsg.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //--------- Getters and setters -----------------------------
@@ -313,8 +282,4 @@ public class Client extends Thread {
     public static void setClientID(String clientID) {
         Client.clientID = clientID;
     }
-
-    //---------------- nested class -------------------
-
-
 }

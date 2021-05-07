@@ -12,7 +12,16 @@ public class Driver {
     private static Scanner scanner = new Scanner(System.in);
 
     public Driver(){
-        client = new Thread(new Client(scanner));
       //   gameManager = new Thread(new GameManager());
+    }
+
+    public static void main(String[] args) {
+        Driver driver = new Driver();
+        client = new Thread(new Client(scanner));
+        client.run();
+
+        while (true){
+
+        }
     }
 }
