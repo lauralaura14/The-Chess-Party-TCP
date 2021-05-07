@@ -1,5 +1,7 @@
 package com.thechessparty.connection;
 
+import com.thechessparty.engine.GameManager;
+
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
@@ -24,6 +26,7 @@ public class ClientHandler implements Runnable {
     private static String inputMsg;
     private static String msg;
     private static String receiverName;
+    private static volatile GameManager gameManager;
 
     // constructor
     public ClientHandler(Socket clientSocket, String clientName, ArrayList<ClientHandler> clientList, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
@@ -80,6 +83,12 @@ public class ClientHandler implements Runnable {
         receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
     }
 
+    /**
+     *
+     * @param each
+     * @return
+     * @throws IOException
+     */
     public int readHeader(ClientHandler each) throws IOException {
         int i = 0;
         //person requesting automatically heads
@@ -117,6 +126,44 @@ public class ClientHandler implements Runnable {
                 return 1; //break from outer to join messaging with player who accepted
         }
         return i;
+    }
+
+    /**
+     * @throws IOException
+     */
+    public void messaging() throws IOException {
+        String inputMsg = "", receiverName = "", msg = "";
+        try {
+            while (true) {
+                inputMsg = inputStream.readUTF();
+                if(inputMsg == null) continue;
+                System.out.println("inputMsg = " + inputMsg);
+                if (inputMsg.equals("disconnect")) {  //haven't found a way to let opponent know other player disconnected
+                    setStatus("disconnected");
+                    inputStream.close();
+                    outputStream.close();
+                    closeConnection();
+                }
+
+                if (inputMsg.contains(":")) {
+                    receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
+                    msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
+                }
+
+                if (receiverName.equals(getClientName())) {
+                    outputStream.writeUTF("\nYou cannot message yourself. Try again.\n");
+                } else {
+                    for (ClientHandler each : clientList) {  //see if name of person receiving msg exists
+                        if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase())) {
+                            each.outputStream.writeUTF(getClientName() + " says " + "'" + msg + "'");
+                            break;
+                        }
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            System.err.println("The client disconnected prematurely [METHOD: messaging()\nCLASS: ClientHandler] " + e.getStackTrace());
+        }
     }
 
     @Override
@@ -161,6 +208,7 @@ public class ClientHandler implements Runnable {
                         each.outputStream.writeUTF("Current Available Waiting Player(s): " + nameStatus.toString());
                 }
             }
+
             // messaging for the players who joined game
             messaging();
         } catch (IOException ioException) {
@@ -173,43 +221,6 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
         }
     }//end of run method
-
-    /**
-     * @throws IOException
-     */
-    public void messaging() throws IOException {
-        String inputMsg = "", receiverName = "", msg = "";
-        try {
-            while (true) {
-                inputMsg = inputStream.readUTF();
-                System.out.println("inputMsg = " + inputMsg);
-                if (inputMsg.equals("disconnect")) {  //haven't found a way to let opponent know other player disconnected
-                    setStatus("disconnected");
-                    inputStream.close();
-                    outputStream.close();
-                    closeConnection();
-                }
-
-                if (inputMsg.contains(":")) {
-                    receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
-                    msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
-                }
-
-                if (receiverName.equals(getClientName())) {
-                    outputStream.writeUTF("\nYou cannot message yourself. Try again.\n");
-                } else {
-                    for (ClientHandler each : clientList) {  //see if name of person receiving msg exists
-                        if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase())) {
-                            each.outputStream.writeUTF(getClientName() + " says " + "'" + msg + "'");
-                            break;
-                        }
-                    }
-                }
-            }
-        } catch (SocketException e) {
-            System.err.println("The client disconnected prematurely [METHOD: messaging()\nCLASS: ClientHandler] " + e.getStackTrace());
-        }
-    }
 
     //------------- private helper methods ------------------
 

@@ -153,8 +153,9 @@ public class Client implements Runnable {
                             }
                             userScanner = false;
                             scanner.close();
-                            gameManager = new Thread(new GameManager(clientTeam));
-                            gameManager.run();
+
+//                            gameManager = new Thread(new GameManager(clientTeam));
+//                            gameManager.run();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

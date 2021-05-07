@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="725302b8-1ce0-4a30-b005-28c53531ca68" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/Driver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/TCPClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/TCPClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/MessageDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/MessageDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,16 +199,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java</url>
           <line>196</line>
           <option name="timeStamp" value="124" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java</url>
-          <line>155</line>
-          <option name="timeStamp" value="140" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java</url>
-          <line>154</line>
-          <option name="timeStamp" value="148" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

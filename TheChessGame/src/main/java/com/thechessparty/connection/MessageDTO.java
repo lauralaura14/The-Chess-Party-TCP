@@ -8,8 +8,6 @@ public class MessageDTO {
     private static volatile String gameMessageOutgoing;
     private static volatile String clientMessageIncoming;
     private static volatile String clientMessageOutgoing;
-    private static volatile boolean clientInLobby = true;
-    private static volatile boolean gameStarted = false;
 
     public static String getGameMessageIncoming() {
         return gameMessageIncoming;
@@ -42,21 +40,4 @@ public class MessageDTO {
     public static void setClientMessageOutgoing(String clientMessageOutgoing) {
         MessageDTO.clientMessageOutgoing = clientMessageOutgoing;
     }
-
-    public static boolean isClientInLobby() {
-        return clientInLobby;
-    }
-
-    public static void setClientInLobby(boolean clientInLobby) {
-        MessageDTO.clientInLobby = clientInLobby;
-    }
-
-    public static boolean isGameStarted() {
-        return gameStarted;
-    }
-
-    public static void setGameStarted(boolean gameStarted) {
-        MessageDTO.gameStarted = gameStarted;
-    }
-
 }
