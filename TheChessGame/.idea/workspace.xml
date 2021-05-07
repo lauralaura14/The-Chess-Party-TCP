@@ -4,10 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d68f8672-1a19-4550-84f6-fbe9d1109d1d" name="Default Changelist" comment="">
+    <list default="true" id="725302b8-1ce0-4a30-b005-28c53531ca68" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_6.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Transition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/player/Transition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/GameManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/engine/GameManager.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +58,19 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/TheChessGame" />
   </component>
   <component name="RunManager" selected="Application.Client">
+    <configuration name="Client (1)" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.Client" />
+      <module name="TheChessGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.thechessparty.connection.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.Client" />
       <module name="TheChessGame" />
@@ -113,6 +137,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.Client (1)" />
       <item itemvalue="Application.GameManager" />
       <item itemvalue="Application.TCPServer" />
       <item itemvalue="Application.TCPClient" />
@@ -123,16 +148,16 @@
       <list>
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.Server" />
+        <item itemvalue="Application.GameManager" />
         <item itemvalue="Application.TCPClient" />
         <item itemvalue="Application.TCPServer" />
-        <item itemvalue="Application.GameManager" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d68f8672-1a19-4550-84f6-fbe9d1109d1d" name="Default Changelist" comment="" />
+      <changelist id="725302b8-1ce0-4a30-b005-28c53531ca68" name="Default Changelist" comment="" />
       <created>1617671708328</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -152,28 +177,6 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="2334" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1620068689744">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state x="2334" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620068689744" />
-    <state width="1877" height="333" key="GridCell.Tab.0.bottom" timestamp="1620075141029">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="333" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620075141029" />
-    <state width="1877" height="333" key="GridCell.Tab.0.center" timestamp="1620075141029">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="333" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620075141029" />
-    <state width="1877" height="333" key="GridCell.Tab.0.left" timestamp="1620075141029">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="333" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620075141029" />
-    <state width="1877" height="333" key="GridCell.Tab.0.right" timestamp="1620075141029">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="333" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1620075141029" />
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -183,9 +186,24 @@
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java</url>
+          <line>173</line>
+          <option name="timeStamp" value="109" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/TCPServer.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java</url>
-          <line>138</line>
-          <option name="timeStamp" value="89" />
+          <line>208</line>
+          <option name="timeStamp" value="124" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -200,7 +218,7 @@
       <configuration name="Application">
         <watch expression="w.legalMoves" language="JAVA" />
         <watch expression="w.legalMoves" language="JAVA" />
-        <watch expression="transferBoard" />
+        <watch expression="transferBoard" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

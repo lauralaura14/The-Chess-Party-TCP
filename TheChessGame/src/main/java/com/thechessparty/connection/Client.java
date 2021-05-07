@@ -1,5 +1,9 @@
 package com.thechessparty.connection;
 
+import com.thechessparty.engine.GameManager;
+import com.thechessparty.engine.Team;
+import org.checkerframework.checker.units.qual.C;
+
 import java.net.*;
 import java.io.*;
 import java.util.Arrays;
@@ -7,50 +11,60 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Client {
+public class Client extends Thread {
 
     private static Thread outgoingPrivateMsg;
     private static Thread incomingPrivateMsg;
 
     // initialize socket and input output streams
-    private Socket socket;
-    private DataInputStream input;
-    private DataOutputStream output;
-    private DataInputStream inServerStream;
-    private DataInputStream outServerStream;
-    private static final String serverIP = "127.0.0.1";
-    private static final int port = 5000;
-    private static final Scanner scan = new Scanner(System.in);
+    private static final int port = 5001;
+    private static String serverIP = "127.0.0.1";
+    private static Scanner scanner;
     private static String clientID;
     private static Thread IncomingPrivateMsg;
     private static Thread OutgoingPrivateMsg;
+    private static Thread gameManager;
+    private static String msg = "";
+    private Socket socket;
+    private DataInputStream input;
+    private DataOutputStream output;
 
-        // constructor to set ip address and port
-     public Client(String address, int port) {
-         // establish a connection
-         try {
-             setServerIP(address);
-             setSocket(new Socket(address, port));
-             System.out.println("Connected at address" + Client.getServerIp() + " on port" + getPort());
+    // constructor to set ip address and port
+    public Client() {
+        this("127.0.0.1", 5001, null);
+    }
 
-             // takes input from terminal
-             this.input = new DataInputStream(System.in);
+    public Client(Scanner scan){
+        this("127.0.0.1", 5001, scan);
+    }
 
-             // sends output to the socket
-             this.output = new DataOutputStream(socket.getOutputStream());
+    public Client(String address, int port, Scanner scan) {
+        // establish a connection
+        try {
+            scanner = scan;
 
-         } catch (UnknownHostException u) {
-             System.out.println(u.getMessage());
-         } catch (IOException i) {
-             System.out.println(i.getMessage());
-         }
-     }
+            setServerIP(address);
+            setSocket(new Socket(address, port));
+            System.out.println("Connected at address" + Client.getServerIp() + " on port" + getPort());
 
-        /**
-         * Logic for running the client
-         * NOTE: currently not in use
-         * TODO: possibly try to refactor the logic in the main method to this method
-         */
+            // takes input from terminal
+            this.input = new DataInputStream(System.in);
+
+            // sends output to the socket
+            this.output = new DataOutputStream(socket.getOutputStream());
+
+        } catch (UnknownHostException u) {
+            System.out.println(u.getMessage());
+        } catch (IOException i) {
+            System.out.println(i.getMessage());
+        }
+    }
+
+    /**
+     * Logic for running the client
+     * NOTE: currently not in use
+     * TODO: possibly try to refactor the logic in the main method to this method
+     */
     public void runClient() {
         // string to read message from input
         String line = "";
@@ -166,41 +180,45 @@ public class Client {
 
         System.out.print("Enter username: ");
 
-        while(true) {
+        while (true) {
             id = getScan().nextLine();
             outputStream.writeUTF(id);
             String receive = inputStream.readUTF();
-            if(receive.equals("no")) {
+            if (receive.equals("no")) {
                 System.out.print("\nUsername " + id + " unavailable. Enter new username: ");
-            } else if(receive.equals("ok")) {
+            } else if (receive.equals("ok")) {
                 break;
             }
         }
 
         setClientID(id);
-        //ServerConnection serverConn = new ServerConnection(socket, getClientID());
-
-        //BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
-        //PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-
-        //new Thread(serverConn).start();
 
         System.out.println("\nConnection made at ip: " + getServerIp() + " on port: " + getPort() + ".\n");
-
 
         //outgoing message client to client
         outgoingPrivateMsg = new Thread(new Runnable() {
             private volatile boolean exit = false;
+            private volatile boolean userScanner = true;
+
             public void run() {
-                while(!exit) {
-                    String msg = scan.nextLine(); //type in from keyboard
+
+                while (!exit) {
+
+                    if (userScanner) {
+                        msg = scanner.nextLine(); //type in from keyboard
+                    }
                     try {
                         outputStream.writeUTF(msg); //send to clientHandler for parsing msg
+                        if (msg.contains("Based on coin toss, you are")) {
+                            scanner.close();
+                            userScanner = false;
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
+
             public void stop() {
                 exit = true;
             }
@@ -209,36 +227,42 @@ public class Client {
         //incoming message client to client
         incomingPrivateMsg = new Thread(new Runnable() {
             public volatile boolean exit = false;
+
             public void run() {
-                while(!exit) {
+                Team clientTeam;
+                while (!exit) {
                     try {
-                        String msg = inputStream.readUTF(); // msg that comes from clientHandler
+                        msg = inputStream.readUTF(); // msg that comes from clientHandler
                         System.out.println(msg);
+                        if (msg.contains("Based on coin toss, you are")) {
+                            System.out.println("the game has started");
+                            if (msg.contains("white")) {
+                                clientTeam = Team.WHITE;
+                            } else {
+                                clientTeam = Team.BLACK;
+                            }
+                            gameManager = new Thread(new GameManager(clientTeam));
+                            gameManager.start();
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
+
             public void stop() {
                 exit = true;
             }
         });
+
         outgoingPrivateMsg.start();
         incomingPrivateMsg.start();
 
-/*
-        while (true) {
-            System.out.println("[" + getClientID() + "]> ");
-            String command = keyboard.readLine();
-            if (command.equals("-quit")) break;
-            out.println("FROM[" + getClientID() + "]: " + command);
-        }
-        socket.close();
-        System.exit(0);
- */
     }
 
+    public void startIncomingThead() {
 
+    }
 
     //--------- Getters and setters -----------------------------
 
@@ -270,8 +294,8 @@ public class Client {
         return serverIP;
     }
 
-    public static void setServerIP(String serverIP) {
-        serverIP = serverIP;
+    public static void setServerIP(String ip) {
+        serverIP = ip;
     }
 
     public static int getPort() {
@@ -279,7 +303,7 @@ public class Client {
     }
 
     public static Scanner getScan() {
-        return scan;
+        return scanner;
     }
 
     public static String getClientID() {
@@ -289,5 +313,8 @@ public class Client {
     public static void setClientID(String clientID) {
         Client.clientID = clientID;
     }
+
+    //---------------- nested class -------------------
+
 
 }

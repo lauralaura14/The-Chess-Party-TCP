@@ -25,8 +25,6 @@ public class ClientHandler implements Runnable {
     public ClientHandler(Socket clientSocket, String clientName, ArrayList<ClientHandler> clientList, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
         this.client = clientSocket;
         this.clientList = clientList;
-        //this.input = new BufferedReader(new InputStreamReader(inputStream));
-        //this.output = new PrintWriter(outputStream, true);
         this.inputStream = inputStream;
         this.outputStream = outputStream;
         this.clientName = clientName;
@@ -137,31 +135,7 @@ public class ClientHandler implements Runnable {
 
 
             // messaging for the players who joined game
-
-            while (true) {
-                inputMsg = inputStream.readUTF();
-
-                if (inputMsg.equals("disconnect")) {  //haven't found a way to let opponent know other player disconnected
-                    setStatus("disconnected");
-                    inputStream.close();
-                    outputStream.close();
-                    closeConnection();
-                }
-
-                String receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
-                String msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
-
-                if (receiverName.equals(getClientName())) {
-                    outputStream.writeUTF("\nYou cannot message yourself. Try again.\n");
-                } else {
-                    for (ClientHandler each : clientList) {  //see if name of person receiving msg exists
-                        if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase())) {
-                            each.outputStream.writeUTF(getClientName() + " says " + "'" + msg + "'");
-                            break;
-                        }
-                    }
-                }
-            }
+            messaging();
 
 
         } catch (IOException ioException) {
@@ -176,39 +150,41 @@ public class ClientHandler implements Runnable {
         }
 
 
-    }
+    }//end of run method
 
+    /**
+     *
+     * @throws IOException
+     */
+    public void messaging() throws IOException {
+        String inputMsg ="", receiverName = "", msg = "";
+        while (true) {
+            inputMsg = inputStream.readUTF();
 
-/*
-//original
-    public void run() {
-        try {
-            while (true) {
-                String request = input.readLine();
-                System.out.println(request);
-                String rq = request.substring(request.indexOf(": ") + 2);
-                if (rq.startsWith("name")) {
-                    getOut().println("connection was made in handler");
-                } else if (true//rq.startsWith("request")) {
-                    //TODO: fix the logic here possibly utilize the Json parser
-                    int firstSpace = request.indexOf(" ");
-                    if (firstSpace != -1) {
-                        clientBroadcast(request.substring(12));
+            if (inputMsg.equals("disconnect")) {  //haven't found a way to let opponent know other player disconnected
+                setStatus("disconnected");
+                inputStream.close();
+                outputStream.close();
+                closeConnection();
+            }
+
+            if(inputMsg.contains(":")) {
+                receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
+                msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
+            }
+
+            if (receiverName.equals(getClientName())) {
+                outputStream.writeUTF("\nYou cannot message yourself. Try again.\n");
+            } else {
+                for (ClientHandler each : clientList) {  //see if name of person receiving msg exists
+                    if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase())) {
+                        each.outputStream.writeUTF(getClientName() + " says " + "'" + msg + "'");
+                        break;
                     }
-                } else {
-                    getOut().println("Server response: " + request);
                 }
             }
-        } catch (IOException e) {
-            System.err.println("IO Exception in client handler");
-            System.err.println(e.getStackTrace());
-        } finally {
-            getOut().close();
-            closeConnection();
         }
     }
-*/
-
 
     //------------- private helper methods ------------------
 
