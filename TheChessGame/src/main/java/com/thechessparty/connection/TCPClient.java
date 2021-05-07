@@ -6,11 +6,7 @@
 package com.thechessparty.connection;
 
 import com.google.gson.Gson;
-import static com.thechessparty.connection.Client.getClientID;
-import static com.thechessparty.connection.Client.getPort;
-import static com.thechessparty.connection.Client.getScan;
-import static com.thechessparty.connection.Client.getServerIp;
-import static com.thechessparty.connection.Client.setClientID;
+import static com.thechessparty.connection.Client.*;
 import com.thechessparty.connection.ServerConnection;
 import com.thechessparty.engine.pieces.Knight;
 import java.io.BufferedReader;

@@ -2,6 +2,7 @@ package com.thechessparty.engine;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.thechessparty.connection.MessageDTO;
 import com.thechessparty.connection.jsonparsing.JsonConverter;
 import com.thechessparty.engine.board.GameBoard;
 import com.thechessparty.engine.board.Tile;
@@ -18,14 +19,12 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class GameManager implements Runnable {
 
-    private static final Gson gson = new Gson();
     private static final String HEADER = "--PLAYERMOVE: ";
-    private static Scanner scan = new Scanner(System.in);
+    private static Scanner scan;
+    private static Gson gson;
     private static String jsonOut = "";
     private static String jsonIn = "";
     private static Team clientTeam;
@@ -52,11 +51,6 @@ public class GameManager implements Runnable {
         } else {
             advarsary = Team.WHITE;
         }
-    }
-
-    public static void main(String[] args) {
-        GameManager gm = new GameManager(Team.WHITE);
-        gm.run();
     }
 
     /**
@@ -88,9 +82,10 @@ public class GameManager implements Runnable {
      * @return
      */
     public static GameBoard configureGame() {
+        scan = new Scanner(System.in);
         board = GameBoard.createInitialBoard();
-
         current = board.getCurrentPlayer();
+        gson = new Gson();
 
         List<Piece> bp = board.getBlack();
         List<Piece> wp = board.getWhite();
@@ -130,6 +125,7 @@ public class GameManager implements Runnable {
         piece = null;
         while (m == null) {
             if (board.getCurrentPlayer().getTeam().equals(clientTeam)) {
+                setIsPlaying(true);
                 System.out.println(clientTeam + " PLAYER: enter x coordinate for starting move");
                 x = scan.nextInt();
                 System.out.println(clientTeam + " PLAYER: enter y coordinate for the starting move");
@@ -141,16 +137,8 @@ public class GameManager implements Runnable {
                 y = scan.nextInt();
                 destination = moveHelper(x, y);
             } else {
+                setIsPlaying(false);
                 System.out.println(advarsary + " PLAYER: is playing wait for them to finish");
-                x = scan.nextInt();
-                System.out.println("BLACK PLAYER: enter y coordinate for the starting move");
-                y = scan.nextInt();
-                start = moveHelper(x, y);
-                System.out.println("BLACK PLAYER: enter x coordinate for destination move");
-                x = scan.nextInt();
-                System.out.println("BLACK PLAYER: enter y coordinate for the destination move");
-                y = scan.nextInt();
-                destination = moveHelper(x, y);
             }
             System.out.println(start);
             System.out.println(destination);

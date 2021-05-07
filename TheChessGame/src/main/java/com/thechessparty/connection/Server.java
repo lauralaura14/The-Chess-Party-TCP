@@ -43,27 +43,30 @@ public class Server {
             connected = true;
 
             //System.out.println("Current List of Clients Connected to Server: " + checkNameList + "\n");
-
-            if(connected) {
-                System.out.println("Waiting for client username.\n");
-                while(true) {
-                    //clientName = getScan().next().toLowerCase();
-                    clientName = inputClient.readUTF();
-                    if (checkNameList.contains(clientName.toLowerCase())) {
-                        outputClient.writeUTF("no");
-                    } else {
-                        outputClient.writeUTF("ok");
-                        System.out.println(clientName + " has connected.\n");
-                        break;
+            try {
+                if (connected) {
+                    System.out.println("Waiting for client username.\n");
+                    while (true) {
+                        //clientName = getScan().next().toLowerCase();
+                        clientName = inputClient.readUTF();
+                        if (checkNameList.contains(clientName.toLowerCase())) {
+                            outputClient.writeUTF("no");
+                        } else {
+                            outputClient.writeUTF("ok");
+                            System.out.println(clientName + " has connected.\n");
+                            break;
+                        }
                     }
-                }
 
-                ClientHandler clientThread = new ClientHandler(client, clientName, clientList, inputClient, outputClient);
-                clientList.add(clientThread);
-                //pool.execute(clientThread);
-                checkNameList.add(clientName);
-                Thread threadClient = new Thread(clientThread);
-                threadClient.start();
+                    ClientHandler clientThread = new ClientHandler(client, clientName, clientList, inputClient, outputClient);
+                    clientList.add(clientThread);
+                    //pool.execute(clientThread);
+                    checkNameList.add(clientName);
+                    Thread threadClient = new Thread(clientThread);
+                    threadClient.start();
+                }
+            } catch (SocketException e){
+                System.err.println("connection from client was unexpectedly terminated: " + e.getStackTrace());
             }
         }
     }

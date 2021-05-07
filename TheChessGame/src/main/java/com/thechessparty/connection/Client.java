@@ -16,33 +16,29 @@ public class Client implements Runnable {
     private static Thread outgoingPrivateMsg;
     private static Thread incomingPrivateMsg;
 
+    private volatile boolean userScanner = true;
+    private static volatile Scanner scanner = new Scanner(System.in);
+
     // initialize socket and input output streams
     private static final int port = 5001;
     private static String serverIP = "127.0.0.1";
-    private static Scanner scanner;
     private static String clientID;
     private static Thread IncomingPrivateMsg;
     private static Thread OutgoingPrivateMsg;
-    private static Thread gameManager;
+    private static Runnable gameManager;
     private static String msg = "";
     private Socket socket;
     private DataInputStream input;
     private DataOutputStream output;
-
     // constructor to set ip address and port
+
     public Client() {
-        this("127.0.0.1", 5001, null);
+        this("127.0.0.1", 5001);
     }
 
-    public Client(Scanner scan) {
-        this("127.0.0.1", 5001, scan);
-    }
-
-    public Client(String address, int port, Scanner scan) {
+    public Client(String address, int port) {
         // establish a connection
         try {
-            scanner = scan;
-
             setServerIP(address);
             setSocket(new Socket(address, port));
             System.out.println("Connected at address" + Client.getServerIp() + " on port" + getPort());
@@ -155,8 +151,10 @@ public class Client implements Runnable {
                             } else {
                                 clientTeam = Team.BLACK;
                             }
+                            userScanner = false;
+                            scanner.close();
                             gameManager = new Thread(new GameManager(clientTeam));
-                            gameManager.start();
+                            gameManager.run();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -179,7 +177,6 @@ public class Client implements Runnable {
     public void startOutgoingThread(){
         outgoingPrivateMsg = new Thread(new Runnable() {
             private volatile boolean exit = false;
-            private volatile boolean userScanner = true;
 
             public void run() {
 
@@ -191,8 +188,8 @@ public class Client implements Runnable {
                     try {
                         output.writeUTF(msg); //send to clientHandler for parsing msg
                         if (msg.contains("Based on coin toss, you are")) {
+                            System.out.println("closing scanner");
                             scanner.close();
-                            userScanner = false;
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -207,31 +204,36 @@ public class Client implements Runnable {
         outgoingPrivateMsg.start();
     }
 
+    /**
+     *
+     * @throws IOException
+     */
+    public void initializeConnection() throws IOException {
+        input = new DataInputStream(socket.getInputStream());
+        output = new DataOutputStream(socket.getOutputStream());
+
+        String id;
+
+        System.out.print("Enter username: ");
+
+        while (true) {
+            id = getScan().nextLine();
+            output.writeUTF(id);
+            String receive = input.readUTF();
+            if (receive.equals("no")) {
+                System.out.print("\nUsername " + id + " unavailable. Enter new username: ");
+            } else if (receive.equals("ok")) {
+                setClientID(id);
+                break;
+            }
+        }
+        System.out.println("\nConnection made at ip: " + getServerIp() + " on port: " + getPort() + ".\n");
+    }
+
     @Override
     public void run() {
         try {
-
-            input = new DataInputStream(socket.getInputStream());
-            output = new DataOutputStream(socket.getOutputStream());
-
-            String id;
-
-            System.out.print("Enter username: ");
-
-            while (true) {
-                id = getScan().nextLine();
-                output.writeUTF(id);
-                String receive = input.readUTF();
-                if (receive.equals("no")) {
-                    System.out.print("\nUsername " + id + " unavailable. Enter new username: ");
-                } else if (receive.equals("ok")) {
-                    break;
-                }
-            }
-
-            setClientID(id);
-
-            System.out.println("\nConnection made at ip: " + getServerIp() + " on port: " + getPort() + ".\n");
+            initializeConnection();
 
             //outgoing message client to client
             startOutgoingThread();

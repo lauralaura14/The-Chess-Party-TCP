@@ -2,6 +2,7 @@ package com.thechessparty.connection;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,9 @@ public class ClientHandler implements Runnable {
     private JoinedPlayer secondPlayer;
     private final List<String> nameStatus = new ArrayList<>();
     private boolean statChange = false;
+    private static String inputMsg;
+    private static String msg;
+    private static String receiverName;
 
     // constructor
     public ClientHandler(Socket clientSocket, String clientName, ArrayList<ClientHandler> clientList, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
@@ -32,47 +36,101 @@ public class ClientHandler implements Runnable {
 
     //------------------- public methods ----------------------------
 
-    @Override
-    public void run() {
-        try {
-            String inputMsg;
+    /**
+     *
+     * @throws IOException
+     */
+    public void welcomeClientConnection() throws IOException {
+        outputStream.writeUTF("Welcome " + getClientName() + ".\n");
 
-            outputStream.writeUTF("Welcome " + getClientName() + ".\n");
+        this.setStatus("available");
+        nameStatusAdd();
 
-            this.setStatus("available");
+        for (ClientHandler each : clientList) {
+            if (each.getStatus().equals("available"))
+                each.outputStream.writeUTF("Current Available Waiting Player(s): " + nameStatus.toString());
+        }
+
+        outputStream.writeUTF("\nPlease message player you want to play with strictly following this format." +
+                "\n'game req' to make request, 'no req' to reject, 'yes req' to accept. For example: " +
+                "\nname: game req | name: no req | name: yes req\n");
+    }
+
+    /**
+     *
+     * @throws IOException
+     */
+    public void getClientAvailability() throws IOException {
+        if (inputMsg.equals("disconnect")) {
+            setStatus("disconnected");
+            nameStatus.clear();
             nameStatusAdd();
 
             for (ClientHandler each : clientList) {
                 if (each.getStatus().equals("available"))
                     each.outputStream.writeUTF("Current Available Waiting Player(s): " + nameStatus.toString());
             }
+            inputStream.close();
+            outputStream.close();
+            closeConnection();
+        }
 
-            outputStream.writeUTF("\nPlease message player you want to play with strictly following this format." +
-                    "\n'game req' to make request, 'no req' to reject, 'yes req' to accept. For example: " +
-                    "\nname: game req | name: no req | name: yes req\n");
+        //incoming msg separated into receiver name and message itself
+        msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
+        receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
+    }
+
+    public int readHeader(ClientHandler each) throws IOException {
+        int i = 0;
+        //person requesting automatically heads
+        switch (msg) {
+            case "game req":
+                return 0;
+            case "no req":
+                each.outputStream.writeUTF("\n" + getClientName() + " denied your request. Choose another available player.\n");
+                return 0;
+            case "yes req":
+                each.outputStream.writeUTF("\n" + getClientName() + " accepted your request. Please type '" + getClientName() + ": starting game'.\n");
+                return 1; // break out from outer to join messaging with player who made request
+            case "starting game":
+                this.outputStream.writeUTF("\nSince you requested, you are automatically heads, " + this.clientName + ".\n...");
+                each.outputStream.writeUTF("\nPlayer who accepts is automatically tails, " + each.clientName + ".\n...");
+
+                if (coinToss() == "heads") {
+                    firstPlayer = new JoinedPlayer(this.client, getClientName(), "white");  //the one who made request (auto heads)
+                    secondPlayer = new JoinedPlayer(each.client, each.getClientName(), "black");  //the one who accepted
+
+                    outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + firstPlayer.getName() + ".");
+                    each.outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + secondPlayer.getName() + ".");
+
+                } else {
+                    firstPlayer = new JoinedPlayer(each.client, each.getClientName(), "white");  //the one who accepted
+                    secondPlayer = new JoinedPlayer(this.client, getClientName(), "black");  //the one who made request
+
+                    each.outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + firstPlayer.getName() + ".");
+                    outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + secondPlayer.getName() + ".");
+
+                }
+                each.setStatus("playing");
+                this.setStatus("playing");
+                statChange = true; //used for broadcasting new list of available players
+                return 1; //break from outer to join messaging with player who accepted
+        }
+        return i;
+    }
+
+    @Override
+    public void run() {
+        try {
+            welcomeClientConnection();
 
             //messaging client to client
-            outer:
-            while (true) {
+            boolean outter = true;
+            while (outter) {
                 inputMsg = inputStream.readUTF(); //msg typed in from client
 
-                if (inputMsg.equals("disconnect")) {
-                    setStatus("disconnected");
-                    nameStatus.clear();
-                    nameStatusAdd();
-
-                    for (ClientHandler each : clientList) {
-                        if (each.getStatus().equals("available"))
-                            each.outputStream.writeUTF("Current Available Waiting Player(s): " + nameStatus.toString());
-                    }
-                    inputStream.close();
-                    outputStream.close();
-                    closeConnection();
-                }
-
-                //incoming msg separated into receiver name and message itself
-                String receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
-                String msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
+                if (!inputMsg.contains(":")) continue;
+                getClientAvailability();
 
                 if (receiverName.equals(getClientName())) {
                     outputStream.writeUTF("\nYou cannot message yourself. Try again.\n");
@@ -84,105 +142,72 @@ public class ClientHandler implements Runnable {
                         } else if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase()) && each.getStatus().equals("available")) {
                             each.outputStream.writeUTF(getClientName() + " says " + "'" + msg + "'");
 
-                            //person requesting automatically heads
-                            switch (msg) {
-                                case "game req":
-                                    break;
-                                case "no req":
-                                    each.outputStream.writeUTF("\n" + getClientName() + " denied your request. Choose another available player.\n");
-                                    break;
-                                case "yes req":
-                                    each.outputStream.writeUTF("\n" + getClientName() + " accepted your request. Please type '" + getClientName() + ": starting game'.\n");
-                                    break outer; // break out from outer to join messaging with player who made request
-                                case "starting game":
-                                    this.outputStream.writeUTF("\nSince you requested, you are automatically heads, " + this.clientName + ".\n...");
-                                    each.outputStream.writeUTF("\nPlayer who accepts is automatically tails, " + each.clientName + ".\n...");
-
-                                    if (coinToss() == "heads") {
-                                        firstPlayer = new JoinedPlayer(this.client, getClientName(), "white");  //the one who made request (auto heads)
-                                        secondPlayer = new JoinedPlayer(each.client, each.getClientName(), "black");  //the one who accepted
-
-                                        outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + firstPlayer.getName() + ".");
-                                        each.outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + secondPlayer.getName() + ".");
-
-                                    } else {
-                                        firstPlayer = new JoinedPlayer(each.client, each.getClientName(), "white");  //the one who accepted
-                                        secondPlayer = new JoinedPlayer(this.client, getClientName(), "black");  //the one who made request
-
-                                        each.outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + firstPlayer.getName() + ".");
-                                        outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + secondPlayer.getName() + ".");
-
-                                    }
-                                    each.setStatus("playing");
-                                    this.setStatus("playing");
-                                    statChange = true; //used for broadcasting new list of available players
-                                    break outer; //break from outer to join messaging with player who accepted
+                            int boolVal = readHeader(each);
+                            if(boolVal == 0){
+                                break;
+                            }else if (boolVal == 1){
+                                outter = false;
                             }
                         }
                     }
                 }
             }
 
-            if(statChange == true) {
+            if (statChange == true) {
                 nameStatus.clear();
                 nameStatusAdd();
-
                 for (ClientHandler each : clientList) {
                     if (each.getStatus().equals("available"))
                         each.outputStream.writeUTF("Current Available Waiting Player(s): " + nameStatus.toString());
                 }
             }
-
-
             // messaging for the players who joined game
             messaging();
-
-
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-
 
         try {
             closeConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }//end of run method
 
     /**
-     *
      * @throws IOException
      */
     public void messaging() throws IOException {
-        String inputMsg ="", receiverName = "", msg = "";
-        while (true) {
-            inputMsg = inputStream.readUTF();
+        String inputMsg = "", receiverName = "", msg = "";
+        try {
+            while (true) {
+                inputMsg = inputStream.readUTF();
+                System.out.println("inputMsg = " + inputMsg);
+                if (inputMsg.equals("disconnect")) {  //haven't found a way to let opponent know other player disconnected
+                    setStatus("disconnected");
+                    inputStream.close();
+                    outputStream.close();
+                    closeConnection();
+                }
 
-            if (inputMsg.equals("disconnect")) {  //haven't found a way to let opponent know other player disconnected
-                setStatus("disconnected");
-                inputStream.close();
-                outputStream.close();
-                closeConnection();
-            }
+                if (inputMsg.contains(":")) {
+                    receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
+                    msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
+                }
 
-            if(inputMsg.contains(":")) {
-                receiverName = inputMsg.substring(0, inputMsg.indexOf(":")).toLowerCase();  //name of person receiving msg
-                msg = inputMsg.substring(inputMsg.indexOf(": ") + 2).toLowerCase();  // msg after :
-            }
-
-            if (receiverName.equals(getClientName())) {
-                outputStream.writeUTF("\nYou cannot message yourself. Try again.\n");
-            } else {
-                for (ClientHandler each : clientList) {  //see if name of person receiving msg exists
-                    if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase())) {
-                        each.outputStream.writeUTF(getClientName() + " says " + "'" + msg + "'");
-                        break;
+                if (receiverName.equals(getClientName())) {
+                    outputStream.writeUTF("\nYou cannot message yourself. Try again.\n");
+                } else {
+                    for (ClientHandler each : clientList) {  //see if name of person receiving msg exists
+                        if (each.getClientName().toLowerCase().equals(receiverName.toLowerCase())) {
+                            each.outputStream.writeUTF(getClientName() + " says " + "'" + msg + "'");
+                            break;
+                        }
                     }
                 }
             }
+        } catch (SocketException e) {
+            System.err.println("The client disconnected prematurely [METHOD: messaging()\nCLASS: ClientHandler] " + e.getStackTrace());
         }
     }
 
