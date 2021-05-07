@@ -135,11 +135,78 @@ public class Client implements Runnable {
         return port;
     }
 
+    /**
+     * Starts the incoming data thread
+     */
+    public void startIncomingThread() {
+        incomingPrivateMsg = new Thread(new Runnable() {
+            public volatile boolean exit = false;
 
-    public void startIncomingThead() {
+            public void run() {
+                Team clientTeam;
+                while (!exit) {
+                    try {
+                        msg = input.readUTF(); // msg that comes from clientHandler
+                        System.out.println(msg);
+                        if (msg.contains("Based on coin toss, you are")) {
+                            System.out.println("the game has started");
+                            if (msg.contains("white")) {
+                                clientTeam = Team.WHITE;
+                            } else {
+                                clientTeam = Team.BLACK;
+                            }
+                            gameManager = new Thread(new GameManager(clientTeam));
+                            gameManager.start();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        System.out.println("connection to server was terminated");
+                        break;
+                    }
+                }
+            }
 
+            public void stop() {
+                exit = true;
+            }
+        });
+        incomingPrivateMsg.start();
     }
-    
+
+    /**
+     * starts outgoing data stream thread
+     */
+    public void startOutgoingThread(){
+        outgoingPrivateMsg = new Thread(new Runnable() {
+            private volatile boolean exit = false;
+            private volatile boolean userScanner = true;
+
+            public void run() {
+
+                while (!exit) {
+
+                    if (userScanner) {
+                        msg = scanner.nextLine(); //type in from keyboard
+                    }
+                    try {
+                        output.writeUTF(msg); //send to clientHandler for parsing msg
+                        if (msg.contains("Based on coin toss, you are")) {
+                            scanner.close();
+                            userScanner = false;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            public void stop() {
+                exit = true;
+            }
+        });
+        outgoingPrivateMsg.start();
+    }
+
     @Override
     public void run() {
         try {
@@ -167,67 +234,11 @@ public class Client implements Runnable {
             System.out.println("\nConnection made at ip: " + getServerIp() + " on port: " + getPort() + ".\n");
 
             //outgoing message client to client
-            outgoingPrivateMsg = new Thread(new Runnable() {
-                private volatile boolean exit = false;
-                private volatile boolean userScanner = true;
-
-                public void run() {
-
-                    while (!exit) {
-
-                        if (userScanner) {
-                            msg = scanner.nextLine(); //type in from keyboard
-                        }
-                        try {
-                            output.writeUTF(msg); //send to clientHandler for parsing msg
-                            if (msg.contains("Based on coin toss, you are")) {
-                                scanner.close();
-                                userScanner = false;
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                public void stop() {
-                    exit = true;
-                }
-            });
+            startOutgoingThread();
 
             //incoming message client to client
-            incomingPrivateMsg = new Thread(new Runnable() {
-                public volatile boolean exit = false;
+            startIncomingThread();
 
-                public void run() {
-                    Team clientTeam;
-                    while (!exit) {
-                        try {
-                            msg = input.readUTF(); // msg that comes from clientHandler
-                            System.out.println(msg);
-                            if (msg.contains("Based on coin toss, you are")) {
-                                System.out.println("the game has started");
-                                if (msg.contains("white")) {
-                                    clientTeam = Team.WHITE;
-                                } else {
-                                    clientTeam = Team.BLACK;
-                                }
-                                gameManager = new Thread(new GameManager(clientTeam));
-                                gameManager.start();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                public void stop() {
-                    exit = true;
-                }
-            });
-
-            outgoingPrivateMsg.start();
-            incomingPrivateMsg.start();
         } catch (IOException e) {
             e.printStackTrace();
         }

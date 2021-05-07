@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="725302b8-1ce0-4a30-b005-28c53531ca68" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/Driver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +46,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/TheChessGame" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
-  <component name="RunManager" selected="Application.Driver">
+  <component name="RunManager" selected="Application.Driver (1)">
     <configuration name="Client (1)" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.Client" />
       <module name="TheChessGame" />
@@ -190,11 +189,6 @@
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java</url>
-          <line>173</line>
-          <option name="timeStamp" value="109" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/TCPServer.java</url>
           <line>41</line>
           <option name="timeStamp" value="115" />
@@ -232,7 +226,7 @@
       <configuration name="Application">
         <watch expression="w.legalMoves" language="JAVA" />
         <watch expression="w.legalMoves" language="JAVA" />
-        <watch expression="transferBoard" />
+        <watch expression="transferBoard" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
