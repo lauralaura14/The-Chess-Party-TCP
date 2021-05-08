@@ -40,9 +40,7 @@ public class GameManager implements Runnable {
     private static volatile boolean isPlaying;
 
     //constructor
-    public GameManager() {
-
-    }
+    public GameManager() {}
 
     public GameManager(Team staringTeam) {
         clientTeam = staringTeam;

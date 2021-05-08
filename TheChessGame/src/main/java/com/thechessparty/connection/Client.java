@@ -30,8 +30,11 @@ public class Client implements Runnable {
     private Socket socket;
     private DataInputStream input;
     private DataOutputStream output;
-    // constructor to set ip address and port
 
+    private static Team clientTeam;
+    private static boolean isInGame = false;
+
+    // constructor to set ip address and port
     public Client() {
         this("127.0.0.1", 5001);
     }
@@ -132,6 +135,14 @@ public class Client implements Runnable {
     }
 
     /**
+     * @param input
+     * @return
+     */
+    public static String appendHeader(String input) {
+        return getClientID() + "--GAMEDATA:" + input;
+    }
+
+    /**
      * Starts the incoming data thread
      */
     public void startIncomingThread() {
@@ -139,23 +150,20 @@ public class Client implements Runnable {
             public volatile boolean exit = false;
 
             public void run() {
-                Team clientTeam;
                 while (!exit) {
                     try {
                         msg = input.readUTF(); // msg that comes from clientHandler
                         System.out.println(msg);
-                        if (msg.contains("Based on coin toss, you are")) {
-                            System.out.println("the game has started");
-                            if (msg.contains("white")) {
-                                clientTeam = Team.WHITE;
-                            } else {
-                                clientTeam = Team.BLACK;
+                        if (!isInGame) {
+                            if (msg.contains("Based on coin toss, you are")) {
+                                System.out.println("the game has started");
+                                if (msg.contains("white")) {
+                                    clientTeam = Team.WHITE;
+                                } else {
+                                    clientTeam = Team.BLACK;
+                                }
+                                isInGame = true;
                             }
-                            userScanner = false;
-                            scanner.close();
-
-//                            gameManager = new Thread(new GameManager(clientTeam));
-//                            gameManager.run();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -175,7 +183,7 @@ public class Client implements Runnable {
     /**
      * starts outgoing data stream thread
      */
-    public void startOutgoingThread(){
+    public void startOutgoingThread() {
         outgoingPrivateMsg = new Thread(new Runnable() {
             private volatile boolean exit = false;
 
@@ -183,15 +191,14 @@ public class Client implements Runnable {
 
                 while (!exit) {
 
-                    if (userScanner) {
+                    if (userScanner && !isInGame) {
                         msg = scanner.nextLine(); //type in from keyboard
+                    } else { //if game has been established
+                        
+                        msg = appendHeader(scanner.nextLine());
                     }
                     try {
                         output.writeUTF(msg); //send to clientHandler for parsing msg
-                        if (msg.contains("Based on coin toss, you are")) {
-                            System.out.println("closing scanner");
-                            scanner.close();
-                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -206,8 +213,9 @@ public class Client implements Runnable {
     }
 
     /**
+     * Utilizes the socket to establish a connection to the server.
      *
-     * @throws IOException
+     * @throws IOException will throw exception if server disconnects unexpectedly
      */
     public void initializeConnection() throws IOException {
         input = new DataInputStream(socket.getInputStream());
@@ -234,6 +242,7 @@ public class Client implements Runnable {
     @Override
     public void run() {
         try {
+            // initialize the data stream connections
             initializeConnection();
 
             //outgoing message client to client
@@ -243,7 +252,8 @@ public class Client implements Runnable {
             startIncomingThread();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("[EXCEPTION] an IOException is being thrown in the Client run method " + e.getStackTrace());
+
         }
     }
 
