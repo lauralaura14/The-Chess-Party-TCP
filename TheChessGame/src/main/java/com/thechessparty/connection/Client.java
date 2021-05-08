@@ -1,5 +1,9 @@
 package com.thechessparty.connection;
 
+import com.thechessparty.engine.GameManager;
+import com.thechessparty.engine.Team;
+import org.checkerframework.checker.units.qual.C;
+
 import java.net.*;
 import java.io.*;
 import java.util.Arrays;
@@ -7,79 +11,55 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Client {
+public class Client implements Runnable {
 
     private static Thread outgoingPrivateMsg;
     private static Thread incomingPrivateMsg;
 
+    private volatile boolean userScanner = true;
+    private static volatile Scanner scanner = new Scanner(System.in);
+
     // initialize socket and input output streams
-    private Socket socket;
-    private DataInputStream input;
-    private DataOutputStream output;
-    private DataInputStream inServerStream;
-    private DataInputStream outServerStream;
-    private static final String serverIP = "127.0.0.1";
-    private static final int port = 5000;
-    private static final Scanner scan = new Scanner(System.in);
+    private static final int port = 5001;
+    private static String serverIP = "127.0.0.1";
     private static String clientID;
     private static Thread IncomingPrivateMsg;
     private static Thread OutgoingPrivateMsg;
+    private static Runnable gameManager;
+    private static String msg = "";
+    private Socket socket;
+    private DataInputStream input;
+    private DataOutputStream output;
 
-        // constructor to set ip address and port
-     public Client(String address, int port) {
-         // establish a connection
-         try {
-             setServerIP(address);
-             setSocket(new Socket(address, port));
-             System.out.println("Connected at address" + Client.getServerIp() + " on port" + getPort());
+    private static Team clientTeam;
+    private static boolean isInGame = false;
 
-             // takes input from terminal
-             this.input = new DataInputStream(System.in);
+    // constructor to set ip address and port
+    public Client() {
+        this("127.0.0.1", 5001);
+    }
 
-             // sends output to the socket
-             this.output = new DataOutputStream(socket.getOutputStream());
-
-         } catch (UnknownHostException u) {
-             System.out.println(u.getMessage());
-         } catch (IOException i) {
-             System.out.println(i.getMessage());
-         }
-     }
-
-        /**
-         * Logic for running the client
-         * NOTE: currently not in use
-         * TODO: possibly try to refactor the logic in the main method to this method
-         */
-    public void runClient() {
-        // string to read message from input
-        String line = "";
-
-        // keep reading until "Over" is input
-        while (!line.equals("TERMINATE")) {
-            try {
-                if (getInput() == null) {
-                    System.out.println("no server was connected unable to run the client exiting...");
-                    return;
-                }
-                BufferedReader d
-                        = new BufferedReader(new InputStreamReader(getInput()));
-                line = d.readLine();
-                getOutput().writeUTF(line);
-            } catch (IOException | NullPointerException i) {
-                System.err.println("Error occurred in the runClient method" + i);
-            }
-        }
-
-        // close the connection
+    public Client(String address, int port) {
+        // establish a connection
         try {
-            getInput().close();
-            getOutput().close();
-            getSocket().close();
+            setServerIP(address);
+            setSocket(new Socket(address, port));
+            System.out.println("Connected at address" + Client.getServerIp() + " on port" + getPort());
+
+            // takes input from terminal
+            this.input = new DataInputStream(System.in);
+
+            // sends output to the socket
+            this.output = new DataOutputStream(socket.getOutputStream());
+
+        } catch (UnknownHostException u) {
+            System.out.println(u.getMessage());
         } catch (IOException i) {
-            System.out.println(i);
+            System.out.println(i.getMessage());
         }
     }
+
+    //------------------- public methods ----------------------
 
     /**
      * Allows the user to set up an ip address they wish to connect to.
@@ -154,91 +134,176 @@ public class Client {
         return port;
     }
 
-    //-------------- main access method -------------------------
-
-    public static void main(String args[]) throws IOException {
-        Socket socket = new Socket(getServerIp(), getPort());
-
-        DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-        DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-
-        String id;
-
-        System.out.print("Enter username: ");
-
-        while(true) {
-            id = getScan().nextLine();
-            outputStream.writeUTF(id);
-            String receive = inputStream.readUTF();
-            if(receive.equals("no")) {
-                System.out.print("\nUsername " + id + " unavailable. Enter new username: ");
-            } else if(receive.equals("ok")) {
-                break;
-            }
+    /**
+     * keeps client in loop until client receives an exit header from the server
+     *
+     * @throws IOException will throw exception if connection is terminated prematurely
+     */
+    public void waitUntil() throws IOException {
+        String exitMsg = "";
+        while (!exitMsg.equals(ClientHandler.EXIT_HEADER)) {
+            exitMsg = input.readUTF();
         }
+    }
 
-        setClientID(id);
-        //ServerConnection serverConn = new ServerConnection(socket, getClientID());
+    /**
+     * Starts the incoming data thread
+     */
+    public void startIncomingThread() {
+        incomingPrivateMsg = new Thread(new Runnable() {
+            public volatile boolean exit = false;
 
-        //BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
-        //PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-
-        //new Thread(serverConn).start();
-
-        System.out.println("\nConnection made at ip: " + getServerIp() + " on port: " + getPort() + ".\n");
-
-
-        //outgoing message client to client
-        outgoingPrivateMsg = new Thread(new Runnable() {
-            private volatile boolean exit = false;
             public void run() {
-                while(!exit) {
-                    String msg = scan.nextLine(); //type in from keyboard
+                while (!exit) {
                     try {
-                        outputStream.writeUTF(msg); //send to clientHandler for parsing msg
+                        msg = input.readUTF(); // msg that comes from clientHandler
+                        if (!msg.equals(ClientHandler.WAIT_HEADER)) {
+                            System.out.println(msg);
+                        } else {
+                            waitUntil();
+                        }
+                        if (!isInGame) {
+                            if (msg.contains("Based on coin toss, you are")) {
+                                System.out.println("the game has started");
+                                if (msg.contains("white")) {
+                                    clientTeam = Team.WHITE;
+                                } else {
+                                    clientTeam = Team.BLACK;
+                                }
+                                isInGame = true;
+                            }
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
+                        System.out.println("connection to server was terminated");
+                        break;
                     }
                 }
             }
+
             public void stop() {
                 exit = true;
             }
         });
+        incomingPrivateMsg.start();
+    }
 
-        //incoming message client to client
-        incomingPrivateMsg = new Thread(new Runnable() {
-            public volatile boolean exit = false;
+    /**
+     * starts outgoing data stream thread
+     */
+    public void startOutgoingThread() {
+        outgoingPrivateMsg = new Thread(new Runnable() {
+            private volatile boolean exit = false;
+
             public void run() {
-                while(!exit) {
+
+                while (!exit) {
+
+                    if (userScanner && !isInGame) {
+                        msg = scanner.nextLine(); //type in from keyboard
+                    } else { //if game has been established
+                        msg = inputSanatizer();
+                    }
                     try {
-                        String msg = inputStream.readUTF(); // msg that comes from clientHandler
-                        System.out.println(msg);
+                        output.writeUTF(msg); //send to clientHandler for parsing msg
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
+
             public void stop() {
                 exit = true;
             }
         });
         outgoingPrivateMsg.start();
-        incomingPrivateMsg.start();
-
-/*
-        while (true) {
-            System.out.println("[" + getClientID() + "]> ");
-            String command = keyboard.readLine();
-            if (command.equals("-quit")) break;
-            out.println("FROM[" + getClientID() + "]: " + command);
-        }
-        socket.close();
-        System.exit(0);
- */
     }
 
+    /**
+     * Uses a regex pattern to ensure the data is sanitized to be a single digit between 1 and 8 inclusive.
+     *
+     * @return the input String value
+     */
+    public String inputSanatizer() {
+        String pattern = "\\b[1-8]\\b";
+        String userInput = "";
+        boolean formated = false;
+        while (!formated) {
+            userInput = scanner.nextLine();
+            if (Pattern.matches(pattern, userInput)) {
+                formated = true;
+            } else {
+                System.out.println("please enter a number between 1 and 8");
+            }
+        }
+        return userInput;
+    }
 
+    /**
+     * Static test method to for JUnit testing
+     *
+     * @param s String
+     * @return will only return if input is between 1-8 inclusive
+     */
+    public static String inputSanatizer(String s) {
+        String pattern = "\\b[1-8]\\b";
+        String userInput = "";
+        boolean formated = false;
+        while (!formated) {
+            userInput = s;
+            if (Pattern.matches(pattern, userInput)) {
+                formated = true;
+            } else {
+                System.out.println("please enter a number between 1 and 8");
+            }
+        }
+        return userInput;
+    }
+
+    /**
+     * Utilizes the socket to establish a connection to the server.
+     *
+     * @throws IOException will throw exception if server disconnects unexpectedly
+     */
+    public void initializeConnection() throws IOException {
+        input = new DataInputStream(socket.getInputStream());
+        output = new DataOutputStream(socket.getOutputStream());
+
+        String id;
+
+        System.out.print("Enter username: ");
+
+        while (true) {
+            id = getScan().nextLine();
+            output.writeUTF(id);
+            String receive = input.readUTF();
+            if (receive.equals("no")) {
+                System.out.print("\nUsername " + id + " unavailable. Enter new username: ");
+            } else if (receive.equals("ok")) {
+                setClientID(id);
+                break;
+            }
+        }
+        System.out.println("\nConnection made at ip: " + getServerIp() + " on port: " + getPort() + ".\n");
+    }
+
+    @Override
+    public void run() {
+        try {
+            // initialize the data stream connections
+            initializeConnection();
+
+            //outgoing message client to client
+            startOutgoingThread();
+
+            //incoming message client to client
+            startIncomingThread();
+
+        } catch (IOException e) {
+            System.err.println("[EXCEPTION] an IOException is being thrown in the Client run method " + e.getStackTrace());
+
+        }
+    }
 
     //--------- Getters and setters -----------------------------
 
@@ -270,8 +335,8 @@ public class Client {
         return serverIP;
     }
 
-    public static void setServerIP(String serverIP) {
-        serverIP = serverIP;
+    public static void setServerIP(String ip) {
+        serverIP = ip;
     }
 
     public static int getPort() {
@@ -279,7 +344,7 @@ public class Client {
     }
 
     public static Scanner getScan() {
-        return scan;
+        return scanner;
     }
 
     public static String getClientID() {
@@ -289,5 +354,4 @@ public class Client {
     public static void setClientID(String clientID) {
         Client.clientID = clientID;
     }
-
 }

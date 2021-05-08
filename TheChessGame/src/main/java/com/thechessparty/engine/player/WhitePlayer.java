@@ -10,6 +10,7 @@ import java.util.List;
 
 public class WhitePlayer extends Player{
 
+    //constructor
     public WhitePlayer(GameBoard board, List<Move> whiteMoves, List<Move> blackMoves){
         super(board, whiteMoves, blackMoves);
     }

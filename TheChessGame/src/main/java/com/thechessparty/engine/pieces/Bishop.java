@@ -18,24 +18,27 @@ public class Bishop extends Piece {
     // offsets relative to the Bishop's position on the board
     private final static int[] BISHOP_MOVES = {-9, -7, 7, 9};
 
+    //constructor
     public Bishop(int position, final Team team) {
         super(PieceIdentifiers.BISHOP, position, team);
     }
 
+    //-------------- public methods -----------------------
+
     @Override
     public List<Move> listLegalMoves(final GameBoard board) {
-       
+
         final List<Move> legalMoves = new ArrayList<>();
        // return null;
         for (final int current : BISHOP_MOVES) {
             int destination = getPosition();
               while (BoardUtilites.isValidMove(destination)) {
-                   if (isFirstColumn(destination, current) 
+                   if (isFirstColumn(destination, current)
                     || isEighthColumn(destination, current)) {
                     break;
                 }
                   destination += current;
-               
+
                 if (BoardUtilites.isValidMove(destination)) {
                    final Tile destinationTile = board.getTile(destination);
 
@@ -50,7 +53,7 @@ public class Bishop extends Piece {
                     if (getTeam() != team) {
                         legalMoves.add(new AttackMove(board, this, destination, occupyingPiece));
                     }
-                    break; 
+                    break;
                 }
             }
         }
@@ -59,7 +62,22 @@ public class Bishop extends Piece {
         return ImmutableList.copyOf(legalMoves);
 }
 
-//----------- private helper methods ---------------------
+    /**
+     * Creates a new Bishop with updated position of Move
+     * @param m the next Move of the Bishop
+     * @return a new Bishop with position of Move
+     */
+    @Override
+    public Piece movePiece(Move m) {
+        return new Bishop(m.getDestination(), m.getMovedPosition().getTeam());
+    }
+
+    @Override
+    public String toString(){
+        return PieceIdentifiers.BISHOP.toString();
+    }
+
+    //----------- private helper methods ---------------------
 
     /**
      * Utilizes the constant boolean array that tracks the
@@ -83,19 +101,4 @@ public class Bishop extends Piece {
     private static boolean isEighthColumn(final int currentPosition, final int offset) {
         return BoardUtilites.EIGHTH_COLUMN[currentPosition] && ((offset == -7) || (offset == 9));
     }
-
-    /**
-     * Creates a new Bishop with updated position of Move
-     * @param m the next Move of the Bishop
-     * @return a new Bishop with position of Move
-     */
-    @Override
-    public Piece movePiece(Move m) {
-        return new Bishop(m.getDestination(), m.getMovedPosition().getTeam());
-    }
-
-    @Override
-    public String toString(){
-        return PieceIdentifiers.BISHOP.toString();
-    } 
  }

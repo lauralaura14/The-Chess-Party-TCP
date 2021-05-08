@@ -16,9 +16,12 @@ public class King extends Piece {
 
     private final static int[] KING_MOVES = {-9, -8, -7, -1, 1, 7, 8, 9};
 
+    //constructor
     public King(int position, final Team team) {
         super(PieceIdentifiers.KING, position, team);
     }
+
+    //------------------- public methods ---------------------
 
     /**
      * Creates a new King with the updated position after a move is made
@@ -70,6 +73,11 @@ public class King extends Piece {
         return ImmutableList.copyOf(legalMoves);
     }
 
+    @Override
+    public String toString() {
+        return PieceIdentifiers.KING.toString();
+    }
+
     //----------- private helper methods ---------------------
 
     /**
@@ -92,10 +100,5 @@ public class King extends Piece {
      */
     private static boolean isEighthColumn(final int currentPosition, final int offset) {
         return BoardUtilites.EIGHTH_COLUMN[currentPosition] && ((offset == -7) || (offset == 1) || (offset == 9));
-    }
-
-    @Override
-    public String toString() {
-        return PieceIdentifiers.KING.toString();
     }
 }

@@ -12,7 +12,8 @@ public class Transition {
 
     //constructor
     public Transition(final GameBoard board,
-                      final Move move, final Status status){
+                      final Move move,
+                      final Status status){
         this.boardState = board;
         this.move = move;
         this.status = status;
