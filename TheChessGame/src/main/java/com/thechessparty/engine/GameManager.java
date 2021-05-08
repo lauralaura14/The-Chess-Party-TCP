@@ -1,9 +1,5 @@
 package com.thechessparty.engine;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.thechessparty.connection.MessageDTO;
-import com.thechessparty.connection.jsonparsing.JsonConverter;
 import com.thechessparty.engine.board.GameBoard;
 import com.thechessparty.engine.board.Tile;
 import com.thechessparty.engine.moveset.Move;
@@ -28,7 +24,7 @@ public class GameManager implements Runnable {
     private static String jsonOut = "";
     private static String jsonIn = "";
     private static Team clientTeam;
-    private static Team advarsary;
+    private static Team adversary;
     private static Player current;
     private static GameBoard board;
     private static WhitePlayer w;
@@ -45,9 +41,9 @@ public class GameManager implements Runnable {
     public GameManager(Team staringTeam) {
         clientTeam = staringTeam;
         if (staringTeam.isWhite()) {
-            advarsary = Team.BLACK;
+            adversary = Team.BLACK;
         } else {
-            advarsary = Team.WHITE;
+            adversary = Team.WHITE;
         }
     }
 
@@ -136,7 +132,7 @@ public class GameManager implements Runnable {
                 destination = moveHelper(x, y);
             } else {
                 setIsPlaying(false);
-                System.out.println(advarsary + " PLAYER: is playing wait for them to finish");
+                System.out.println(adversary + " PLAYER: is playing wait for them to finish");
             }
             System.out.println(start);
             System.out.println(destination);
@@ -257,12 +253,12 @@ public class GameManager implements Runnable {
         GameManager.clientTeam = clientTeam;
     }
 
-    public static Team getAdvarsary() {
-        return advarsary;
+    public static Team getAdversary() {
+        return adversary;
     }
 
-    public static void setAdvarsary(Team advarsary) {
-        GameManager.advarsary = advarsary;
+    public static void setAdversary(Team adversary) {
+        GameManager.adversary = adversary;
     }
 
     public static Scanner getScan() {

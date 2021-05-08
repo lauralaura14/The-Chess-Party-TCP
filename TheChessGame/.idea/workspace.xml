@@ -8,6 +8,13 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/MessageDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/theChessParty/connection/ClientHandler.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +54,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/TheChessGame" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
-  <component name="RunManager" selected="Application.Driver (1)">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Client (1)" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.thechessparty.connection.Client" />
       <module name="TheChessGame" />
@@ -199,28 +206,39 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/engine/GameManager.java</url>
-          <line>194</line>
+          <line>190</line>
           <option name="timeStamp" value="124" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java</url>
-          <line>408</line>
+          <line>401</line>
           <option name="timeStamp" value="182" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java</url>
-          <line>409</line>
+          <line>402</line>
           <option name="timeStamp" value="185" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/ClientHandler.java</url>
-          <line>353</line>
+          <line>344</line>
           <option name="timeStamp" value="186" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/thechessparty/connection/ClientTests.java</url>
+          <line>16</line>
+          <option name="timeStamp" value="187" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/thechessparty/connection/Client.java</url>
+          <line>162</line>
+          <option name="timeStamp" value="190" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
+        <PinnedItemInfo parentTag="com.thechessparty.connection.ClientHandler" memberName="currentPlayer" />
         <PinnedItemInfo parentTag="com.thechessparty.engine.player.WhitePlayer" memberName="king" />
         <PinnedItemInfo parentTag="com.thechessparty.engine.player.WhitePlayer" memberName="board" />
         <PinnedItemInfo parentTag="com.thechessparty.engine.board.GameBoard" memberName="gameBoard" />

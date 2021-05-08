@@ -19,11 +19,12 @@ import java.util.List;
 
 public class ClientHandler implements Runnable {
 
+    protected static final String WAIT_HEADER = "-WAIT-";
+    protected static final String EXIT_HEADER = "-EXIT-";
+
     //instance variables
     private Socket client;
-    private BufferedReader input;
-    private PrintWriter output;
-    private final ArrayList<ClientHandler> clientList;
+    private final List<ClientHandler> clientList;
     private final DataInputStream inputStream;
     private final DataOutputStream outputStream;
     private String status;
@@ -38,8 +39,6 @@ public class ClientHandler implements Runnable {
 
     // game variables
     private String clientName;
-    //    private static Team clientTeam;
-    //    private static Team adversaryTeam;
     private String adversaryName;
     private static Player current;
     private static GameBoard board;
@@ -63,7 +62,9 @@ public class ClientHandler implements Runnable {
     //------------------- public methods ----------------------------
 
     /**
-     * @throws IOException
+     * Sends out welcome message to newly connected client along with list of other available connected clients
+     *
+     * @throws IOException will throw exception if the connection is terminated.
      */
     public void welcomeClientConnection() throws IOException {
         outputStream.writeUTF("Welcome " + getClientName() + ".\n");
@@ -181,7 +182,7 @@ public class ClientHandler implements Runnable {
                 }
             }
         } catch (SocketException e) {
-            System.err.println("The client disconnected prematurely [METHOD: messaging()\nCLASS: ClientHandler] " + e.getStackTrace());
+            System.err.println("[METHOD: messaging()] The client disconnected prematurely\n[CLASS: ClientHandler] " + e.getStackTrace());
         }
     }
 
@@ -200,7 +201,7 @@ public class ClientHandler implements Runnable {
                 }
             }
         } catch (SocketException e) {
-            System.err.println("The client disconnected prematurely [METHOD: messaging()\nCLASS: ClientHandler] " + e.getStackTrace());
+            System.err.println("[METHOD: messaging()] The client disconnected prematurely\n[CLASS: ClientHandler] " + e.getStackTrace());
         }
     }
 
@@ -284,22 +285,12 @@ public class ClientHandler implements Runnable {
     }
 
     /**
-     * Iterates through the list of clients and sends a message to each of them
-     *
-     * @param msg String of the message that is to be broadcast
-     */
-    private void clientBroadcast(String msg) {
-        for (ClientHandler client : clientList) {
-            client.output.println(msg);
-        }
-    }
-
-    /**
      * Helper method that closes the connection and encapsulates the
      */
     private void closeConnection() {
         try {
-            getInput().close();
+            inputStream.close();
+            outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -352,6 +343,7 @@ public class ClientHandler implements Runnable {
         m = null;
         piece = null;
         messaging(this.currentPlayer.getAdversaryName(), "please wait for adversary to finish their turn");
+        messaging(this.currentPlayer.getAdversaryName(), WAIT_HEADER);
         while (m == null) {
                 messaging(this.currentPlayer.getPlayerName(), this.currentPlayer.getTeam() +" PLAYER: enter x coordinate for starting move");
                 x = Integer.parseInt(inputStream.readUTF());
@@ -376,6 +368,7 @@ public class ClientHandler implements Runnable {
                 messaging(this.currentPlayer.getPlayerName(), currentPlayer.getTeam() + "invalid move");
             }
         }
+        messaging(this.currentPlayer.getAdversaryName(), EXIT_HEADER);
         return destination;
     }
 
@@ -460,22 +453,6 @@ public class ClientHandler implements Runnable {
 
     public void setClient(Socket client) {
         this.client = client;
-    }
-
-    public BufferedReader getInput() {
-        return input;
-    }
-
-    public void setInput(BufferedReader input) {
-        this.input = input;
-    }
-
-    public PrintWriter getOut() {
-        return output;
-    }
-
-    public void setOut(PrintWriter out) {
-        this.output = out;
     }
 
     public void setClientName(String clientName) {

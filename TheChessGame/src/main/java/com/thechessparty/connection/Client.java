@@ -135,11 +135,15 @@ public class Client implements Runnable {
     }
 
     /**
-     * @param input
-     * @return
+     * keeps client in loop until client receives an exit header from the server
+     *
+     * @throws IOException will throw exception if connection is terminated prematurely
      */
-    public static String appendHeader(String input) {
-        return getClientID() + "--GAMEDATA:" + input;
+    public void waitUntil() throws IOException {
+        String exitMsg = "";
+        while (!exitMsg.equals(ClientHandler.EXIT_HEADER)) {
+            exitMsg = input.readUTF();
+        }
     }
 
     /**
@@ -153,7 +157,11 @@ public class Client implements Runnable {
                 while (!exit) {
                     try {
                         msg = input.readUTF(); // msg that comes from clientHandler
-                        System.out.println(msg);
+                        if (!msg.equals(ClientHandler.WAIT_HEADER)) {
+                            System.out.println(msg);
+                        } else {
+                            waitUntil();
+                        }
                         if (!isInGame) {
                             if (msg.contains("Based on coin toss, you are")) {
                                 System.out.println("the game has started");
@@ -194,7 +202,6 @@ public class Client implements Runnable {
                     if (userScanner && !isInGame) {
                         msg = scanner.nextLine(); //type in from keyboard
                     } else { //if game has been established
-
                         msg = inputSanatizer();
                     }
                     try {
@@ -234,6 +241,7 @@ public class Client implements Runnable {
 
     /**
      * Static test method to for JUnit testing
+     *
      * @param s String
      * @return will only return if input is between 1-8 inclusive
      */

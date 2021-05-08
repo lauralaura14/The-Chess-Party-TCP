@@ -11,14 +11,13 @@ public class Server {
 
     private static final int PORT = 5001;
 
-    private static Scanner scan = new Scanner(System.in);
     private static boolean connected = false;
+
     //initialize socket and input stream
     private Socket socket;
     private ServerSocket server;
     private DataInputStream input;
     private static String clientName;
-
     private static ArrayList<String> checkNameList = new ArrayList<>();
 
     // Server class variables
@@ -99,9 +98,5 @@ public class Server {
 
     public static int getPORT() {
         return PORT;
-    }
-
-    public static Scanner getScan() {
-        return scan;
     }
 }
