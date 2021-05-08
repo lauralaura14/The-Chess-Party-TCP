@@ -18,9 +18,12 @@ public class Queen extends Piece{
     // offsets relative to the Queen's position on the board
     private final static int[] QUEEN_MOVES = {-9,-8,-7,-1,1,7,8,9};
 
+    //constructor
     public Queen(int position, final Team team){
         super(PieceIdentifiers.QUEEN, position,team);
     }
+
+    //------------- public methods --------------------------
 
    @Override
     public List<Move> listLegalMoves(final GameBoard board) {
@@ -59,7 +62,22 @@ public class Queen extends Piece{
         return ImmutableList.copyOf(legalMoves);
 }
 
-//----------- private helper methods ---------------------
+    /**
+     * Creates a new Queen with updated position of Move
+     * @param m the next Move of the Bishop
+     * @return a new Queen with position of Move
+     */
+    @Override
+    public Queen movePiece(Move m) {
+        return new Queen(m.getDestination(), m.getMovedPosition().getTeam());
+    }
+
+    @Override
+    public String toString(){
+        return PieceIdentifiers.QUEEN.toString();
+    }
+
+    //----------- private helper methods ---------------------
 
     /**
      * Utilizes the constant boolean array that tracks the
@@ -82,20 +100,5 @@ public class Queen extends Piece{
      */
     private static boolean isEighthColumn(final int currentPosition, final int offset) {
         return BoardUtilites.EIGHTH_COLUMN[currentPosition] && (offset == -7 || offset == 1 || offset == 9);
-    }
-
-    /**
-     * Creates a new Queen with updated position of Move
-     * @param m the next Move of the Bishop
-     * @return a new Queen with position of Move
-     */
-    @Override
-    public Queen movePiece(Move m) {
-        return new Queen(m.getDestination(), m.getMovedPosition().getTeam());
-    }
-
-    @Override
-    public String toString(){
-        return PieceIdentifiers.QUEEN.toString();
     }
 }

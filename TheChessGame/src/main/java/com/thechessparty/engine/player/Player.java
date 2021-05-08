@@ -20,8 +20,8 @@ public abstract class Player {
 
     // constructor
     public Player(final GameBoard board, 
-        final List<Move> playerMoves, 
-        List<Move> adversaryMoves) {
+                  final List<Move> playerMoves,
+                  List<Move> adversaryMoves) {
         this.board = board;
         this.king = kingify();
         this.legalMoves = playerMoves;
@@ -72,7 +72,10 @@ public abstract class Player {
         return this.legalMoves.contains(move);
     }
 
-    
+    /**
+     * gets the values of the inCheck variable
+     * @return the status of inCheck
+     */
     public boolean inCheck() {
         return this.inCheck;
     }
@@ -100,9 +103,10 @@ public abstract class Player {
     }
 
     /**
+     * Creates a Transition object that will store all the game state data after a move has been made
      *
-     * @param m
-     * @return
+     * @param m the move that the player has made
+     * @return the game state of the board
      */
     public Transition move(final Move m) {
 

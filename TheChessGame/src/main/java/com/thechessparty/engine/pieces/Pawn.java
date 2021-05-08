@@ -12,11 +12,15 @@ import java.util.List;
 
 public class Pawn extends Piece {
 
+    //class variables
     private final static int[] PAWN_MOVES = {8, 16, 7, 9};
 
+    //constructor
     public Pawn(final int position, final Team team) {
         super(PieceIdentifiers.PAWN, position, team);
     }
+
+    //--------------- public methods --------------------
 
     @Override
     public List<Move> listLegalMoves(GameBoard board) {

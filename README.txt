@@ -24,24 +24,35 @@ Basic folder/package hierarchy follows a standard Maven structure.
     │   ├── java   
     │   │   └── com
     │   │        └──thechessparty
-    │   │                    ├── engine
-    │   └── resources        │      ├───────────────────────────────── board
-    │                        │      ├────────────── pieces               ├── Tile.java     
-    │                        │      └── Team.enum    ├── Piece.java      ├── EmptyTile.java
-    │                        │                       ├── Pawn.java       ├── OccupiedTile.java
-    │                        │                       ├── Rook.java       ├── Move.java
-    │                        │                       ├── Queen.java      ├── AttackMove.java
-    │                        │                       ├── Knight.java     ├── NormalMove.java
-    │                        │                       ├── Bishop.java     ├── GameBoard.java
-    │                        │                       └── King.java       ├── BoardUtilities.java
-    │                        │
-    │                        └── connection
-    │                                   ├──────────────────────jsonparsing 
-    │                                   │                            └── Json.java
-    │                                   ├── Client.java                
-    │                                   ├── ClientHandler.java
-    │                                   ├── Server.java
-    │                                   └── ServerConnection.java
+    │   │              │        ├── engine          
+    │   └── resources  └─Driver.java   ├───────────────────────────────── board
+    │                           │      ├────────────── pieces               ├── Tile.java     
+    │                           │      ├── Team.enum    ├── Piece.java      ├── EmptyTile.java
+    │                           │      │                ├── Pawn.java       ├── OccupiedTile.java
+    │                           │      │                ├── Rook.java       ├── BoardUtilities.java
+    │                           │      │                ├── Queen.java      └── GameBoard.java
+    │                           │      │                ├── PieceIdentifiers.java     └── Builder.java
+    │                           │      │                ├── Knight.java     
+    │                           │      │                ├── Bishop.java  
+    │                           │      │                └── King.java     
+    │                           │      │
+    │                           │      └── moveset
+    │                           │              ├── AttackMove.java
+    │                           │              ├── Castling.java       
+    │                           │              ├── InvalidMove.java  
+    │                           │              ├── Move.java  
+    │                           │              ├── MoveFactory.java
+    │                           │              ├── NormalMove.java 
+    │                           │              ├── PawnAttackMove.java
+    │                           │              └── PawnFirstMove
+    │                           │
+    │                           └── connection
+    │                                       ├──────────────────────jsonparsing 
+    │                                       │                            └── Json.java
+    │                                       ├── Client.java                
+    │                                       ├── ClientHandler.java
+    │                                       ├── Server.java
+    │                                       └── JoinedPlayer.java
     │
     └── test
         ├── java 
@@ -88,7 +99,7 @@ Basic folder/package hierarchy follows a standard Maven structure.
 
  java (source folder): The parent directory of all of the Java files in the project.
 
- 
+
  connection (package): The primary package of java classes that are related to the server
  and client TCP connection. 
 

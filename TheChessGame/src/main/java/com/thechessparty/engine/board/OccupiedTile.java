@@ -6,7 +6,7 @@ import com.thechessparty.engine.pieces.Piece;
 public final class OccupiedTile extends Tile {
 
     // instance variable
-    Piece pieceOccuping;
+    public Piece pieceOccuping;
 
     // constructor makes call to Tile constructor
     OccupiedTile(final int coordinate, Piece piece) {
