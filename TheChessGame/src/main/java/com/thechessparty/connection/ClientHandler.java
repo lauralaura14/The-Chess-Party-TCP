@@ -109,7 +109,7 @@ public class ClientHandler implements Runnable {
      * @return
      * @throws IOException
      */
-    public int readHeader(ClientHandler each) throws IOException {
+    public int readHeader(final ClientHandler each) throws IOException {
         int i = 0;
         //person requesting automatically heads
         switch (msg) {
@@ -131,15 +131,12 @@ public class ClientHandler implements Runnable {
 
                     outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + this.whitePlayer.getName() + ".");
                     each.outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + this.blackPlayer.getName() + ".");
-
-                    adversaryName = each.clientName;
                 } else {
                     this.whitePlayer = new JoinedPlayer(each.client, each.getClientName(), Team.WHITE, this.clientName, Team.BLACK);  //the one who accepted
                     this.blackPlayer = new JoinedPlayer(this.client, this.clientName, Team.BLACK, each.getClientName(), Team.WHITE);  //the one who made request
 
                     each.outputStream.writeUTF("\nBased on coin toss, you are first (white piece), " + this.whitePlayer.getName() + ".");
                     outputStream.writeUTF("\nBased on coin toss, you are second (black piece), " + this.blackPlayer.getName() + ".");
-
                 }
                 this.currentPlayer = this.whitePlayer;
                 each.setStatus("playing");
@@ -195,7 +192,7 @@ public class ClientHandler implements Runnable {
      * @param message the message to be sent
      * @throws IOException will throw exception if connection is terminated
      */
-    public void messaging(String name, String message) throws IOException {
+    public void messaging(final String name, final String message) throws IOException {
         try {
             for (ClientHandler each : clientList) {  //see if name of person receiving msg exists
                 if (each.getClientName().equalsIgnoreCase(name)) {
@@ -398,8 +395,6 @@ public class ClientHandler implements Runnable {
 
                 //players either makes move or waits for other player to finish move
                 int destination = waitMakeMove();
-
-                waitMakeMove();
 
                 messaging(this.currentPlayer.getAdversaryName(),"the " + current.getTeam() + " has selected " + piece.toString() + " going to " + destination);
                 messaging(this.currentPlayer.getPlayerName(),"the " + current.getTeam() + " has selected " + piece.toString() + " going to " + destination);

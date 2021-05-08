@@ -194,8 +194,8 @@ public class Client implements Runnable {
                     if (userScanner && !isInGame) {
                         msg = scanner.nextLine(); //type in from keyboard
                     } else { //if game has been established
-                        
-                        msg = appendHeader(scanner.nextLine());
+
+                        msg = inputSanatizer();
                     }
                     try {
                         output.writeUTF(msg); //send to clientHandler for parsing msg
@@ -210,6 +210,46 @@ public class Client implements Runnable {
             }
         });
         outgoingPrivateMsg.start();
+    }
+
+    /**
+     * Uses a regex pattern to ensure the data is sanitized to be a single digit between 1 and 8 inclusive.
+     *
+     * @return the input String value
+     */
+    public String inputSanatizer() {
+        String pattern = "\\b[1-8]\\b";
+        String userInput = "";
+        boolean formated = false;
+        while (!formated) {
+            userInput = scanner.nextLine();
+            if (Pattern.matches(pattern, userInput)) {
+                formated = true;
+            } else {
+                System.out.println("please enter a number between 1 and 8");
+            }
+        }
+        return userInput;
+    }
+
+    /**
+     * Static test method to for JUnit testing
+     * @param s String
+     * @return will only return if input is between 1-8 inclusive
+     */
+    public static String inputSanatizer(String s) {
+        String pattern = "\\b[1-8]\\b";
+        String userInput = "";
+        boolean formated = false;
+        while (!formated) {
+            userInput = s;
+            if (Pattern.matches(pattern, userInput)) {
+                formated = true;
+            } else {
+                System.out.println("please enter a number between 1 and 8");
+            }
+        }
+        return userInput;
     }
 
     /**
